@@ -1,6 +1,8 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:registration_app/Exceptions/exceptions.dart';
 import 'package:registration_app/Responsive/size_config.dart';
+import 'package:registration_app/Services/auth_service.dart';
 import 'package:registration_app/Widgets/space.dart';
 import 'package:registration_app/constants/routes.dart';
 import 'package:registration_app/style/images.dart';
@@ -115,14 +117,25 @@ class _RegisterViewState extends State<RegisterView> {
                 horizontal: 1 * SizeConfig.widthMultiplier!,
               ),
               child: GestureDetector(
-                onTap: () {
+                onTap: () async {
                   if (_passwordErrorText == null &&
                       _emailErrorText == null &&
                       _usernameErrorText == null &&
                       _emailController.text.isNotEmpty &&
                       _passwordController.text.isNotEmpty &&
                       _usernameController.text.isNotEmpty) {
-                    log("Registring  ...");
+                    try {
+                      await AuthService.register(
+                        email: _emailController.text,
+                        username: _usernameController.text,
+                        password: _passwordController.text,
+                      );
+                      log("registred");
+                      if(!mounted) return;
+                      Navigator.of(context).pushNamed(loginViewRoute);
+                    } on UserAlredyExistAuthException {
+                      log("user already exist");
+                    }
                   }
                 },
                 child: Container(

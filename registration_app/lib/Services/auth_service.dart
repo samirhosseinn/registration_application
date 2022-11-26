@@ -27,7 +27,7 @@ class AuthService {
     registerBody["email"] = email;
     registerBody["username"] = username;
     registerBody["password"] = password;
-    var res = await post(url, body: loginBody);
+    var res = await post(url, body: registerBody);
     int statusCode = int.parse(utf8.decode(res.bodyBytes));
     if (statusCode != 0) {
       throw UserAlredyExistAuthException();

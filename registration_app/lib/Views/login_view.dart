@@ -14,19 +14,19 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  late final TextEditingController _emailOrUsernameController;
+  late final TextEditingController _usernameController;
   late final TextEditingController _passwordController;
 
   @override
   void initState() {
-    _emailOrUsernameController = TextEditingController();
+    _usernameController = TextEditingController();
     _passwordController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    _emailOrUsernameController.dispose();
+    _usernameController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -51,17 +51,12 @@ class _LoginViewState extends State<LoginView> {
             heightSpace(5),
             TextField(
               onChanged: (_) => setState(() => {}),
-              controller: _emailOrUsernameController,
+              controller: _usernameController,
               decoration: InputDecoration(
-                hintText: "Email or Username",
+                hintText: "Username",
                 hintStyle: AppTheme.greyText.subtitle1,
-                errorText: _emailErrorText,
-                errorStyle: TextStyle(
-                  color: Colors.red,
-                  fontFamily: AppTheme.primaryFontFamily,
-                ),
                 prefixIcon: Icon(
-                  Icons.email,
+                  Icons.person,
                   color: Colors.grey,
                   size: 5 * SizeConfig.imageSizeMultiplier!,
                 ),
@@ -107,20 +102,18 @@ class _LoginViewState extends State<LoginView> {
               ),
               child: GestureDetector(
                 onTap: () {
-                  if(_passwordErrorText == null &&
-                      _emailErrorText == null &&
-                      _emailOrUsernameController.text.isNotEmpty &&
-                      _passwordController.text.isNotEmpty){
-                        log("logging in ...");
-                      }
+                  if (_passwordErrorText == null &&
+                      _usernameController.text.isNotEmpty &&
+                      _passwordController.text.isNotEmpty) {
+                    log("logging in ...");
+                  }
                 },
                 child: Container(
                   width: 90 * SizeConfig.widthMultiplier!,
                   height: 7 * SizeConfig.heightMultiplier!,
                   decoration: BoxDecoration(
                     color: (_passwordErrorText == null &&
-                            _emailErrorText == null &&
-                            _emailOrUsernameController.text.isNotEmpty &&
+                            _usernameController.text.isNotEmpty &&
                             _passwordController.text.isNotEmpty)
                         ? AppTheme.primaryLightColor
                         : Colors.grey,
@@ -169,19 +162,6 @@ class _LoginViewState extends State<LoginView> {
     if (text.isNotEmpty && text.length < 8) {
       return "short password";
     }
-    return null;
-  }
-
-  String? get _emailErrorText {
-    final text = _emailOrUsernameController.text;
-    final bool emailValid = RegExp(
-            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
-        .hasMatch(text);
-
-    if (text.isNotEmpty && !emailValid) {
-      return "wronge email";
-    }
-
     return null;
   }
 }

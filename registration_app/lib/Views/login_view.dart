@@ -1,6 +1,9 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:registration_app/Exceptions/exceptions.dart';
+import 'package:registration_app/Profile/profile.dart';
 import 'package:registration_app/Responsive/size_config.dart';
+import 'package:registration_app/Services/auth_service.dart';
 import 'package:registration_app/Widgets/space.dart';
 import 'package:registration_app/constants/routes.dart';
 import 'package:registration_app/style/images.dart';
@@ -70,11 +73,6 @@ class _LoginViewState extends State<LoginView> {
               decoration: InputDecoration(
                 hintText: "Password",
                 hintStyle: AppTheme.greyText.subtitle1,
-                errorText: _passwordErrorText,
-                errorStyle: TextStyle(
-                  color: Colors.red,
-                  fontFamily: AppTheme.primaryFontFamily,
-                ),
                 prefixIcon: Icon(
                   Icons.password,
                   color: Colors.grey,
@@ -101,19 +99,31 @@ class _LoginViewState extends State<LoginView> {
                 horizontal: 1 * SizeConfig.widthMultiplier!,
               ),
               child: GestureDetector(
-                onTap: () {
-                  if (_passwordErrorText == null &&
-                      _usernameController.text.isNotEmpty &&
+                onTap: () async {
+                  if (_usernameController.text.isNotEmpty &&
                       _passwordController.text.isNotEmpty) {
-                    log("logging in ...");
+                    try {
+                      Map userData = await AuthService.login(
+                        usernameOrEmail: _usernameController.text,
+                        password: _passwordController.text,
+                      );
+                      Profile().email = userData["email"];
+                      Profile().username = userData["username"];
+                      if (!mounted) return;
+                      Navigator.of(context).pushNamedAndRemoveUntil(
+                        mainViewRoute,
+                        (route) => false,
+                      );
+                    } on CanNotLoginAuthException {
+                      log("could not login");
+                    }
                   }
                 },
                 child: Container(
                   width: 90 * SizeConfig.widthMultiplier!,
                   height: 7 * SizeConfig.heightMultiplier!,
                   decoration: BoxDecoration(
-                    color: (_passwordErrorText == null &&
-                            _usernameController.text.isNotEmpty &&
+                    color: (_usernameController.text.isNotEmpty &&
                             _passwordController.text.isNotEmpty)
                         ? AppTheme.primaryLightColor
                         : Colors.grey,
@@ -154,14 +164,5 @@ class _LoginViewState extends State<LoginView> {
         ),
       ),
     );
-  }
-
-  String? get _passwordErrorText {
-    final text = _passwordController.text;
-
-    if (text.isNotEmpty && text.length < 8) {
-      return "short password";
-    }
-    return null;
   }
 }

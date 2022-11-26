@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["user"] == $user && $_POST["p
         case "login":
             $resultFromUsername =  json_encode($Udb->loginUserFromUsername($_POST["usernameOrEmail"], $_POST["password"]));
             $resultFromEmail = json_encode($Udb->loginUserFromEmail($_POST["usernameOrEmail"], $_POST["password"]));
-            if (empty(json_decode($resultFromUsername))) {
+            if ($resultFromUsername == "[]") {
                 echo $resultFromEmail;
             } else {
                 echo $resultFromUsername;

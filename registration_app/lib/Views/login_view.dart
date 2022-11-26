@@ -1,7 +1,7 @@
+import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:registration_app/Responsive/size_config.dart';
 import 'package:registration_app/Widgets/space.dart';
-import 'package:registration_app/Widgets/text_filed.dart';
 import 'package:registration_app/constants/routes.dart';
 import 'package:registration_app/style/images.dart';
 import 'package:registration_app/style/style.dart';
@@ -14,19 +14,19 @@ class LoginView extends StatefulWidget {
 }
 
 class _LoginViewState extends State<LoginView> {
-  late final TextEditingController _emailController;
+  late final TextEditingController _emailOrUsernameController;
   late final TextEditingController _passwordController;
 
   @override
   void initState() {
-    _emailController = TextEditingController();
+    _emailOrUsernameController = TextEditingController();
     _passwordController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
-    _emailController.dispose();
+    _emailOrUsernameController.dispose();
     _passwordController.dispose();
     super.dispose();
   }
@@ -49,17 +49,43 @@ class _LoginViewState extends State<LoginView> {
               style: AppTheme.darkPrimaryText.headline5,
             ),
             heightSpace(5),
-            customTextField(
-              controller: _emailController,
-              hintText: "Email",
-              icon: Icons.email,
+            TextField(
+              onChanged: (_) => setState(() => {}),
+              controller: _emailOrUsernameController,
+              decoration: InputDecoration(
+                hintText: "Email or Username",
+                hintStyle: AppTheme.greyText.subtitle1,
+                errorText: _emailErrorText,
+                errorStyle: TextStyle(
+                  color: Colors.red,
+                  fontFamily: AppTheme.primaryFontFamily,
+                ),
+                prefixIcon: Icon(
+                  Icons.email,
+                  color: Colors.grey,
+                  size: 5 * SizeConfig.imageSizeMultiplier!,
+                ),
+              ),
             ),
             heightSpace(3),
-            customTextField(
+            TextField(
+              onChanged: (_) => setState(() => {}),
               controller: _passwordController,
-              hintText: "Password",
-              icon: Icons.password,
-              isPassword: true,
+              obscureText: true,
+              decoration: InputDecoration(
+                hintText: "Password",
+                hintStyle: AppTheme.greyText.subtitle1,
+                errorText: _passwordErrorText,
+                errorStyle: TextStyle(
+                  color: Colors.red,
+                  fontFamily: AppTheme.primaryFontFamily,
+                ),
+                prefixIcon: Icon(
+                  Icons.password,
+                  color: Colors.grey,
+                  size: 5 * SizeConfig.imageSizeMultiplier!,
+                ),
+              ),
             ),
             heightSpace(2),
             Align(
@@ -74,18 +100,30 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
             ),
-            heightSpace(4),
+            heightSpace(8),
             Padding(
               padding: EdgeInsets.symmetric(
                 horizontal: 1 * SizeConfig.widthMultiplier!,
               ),
               child: GestureDetector(
-                onTap: () {},
+                onTap: () {
+                  if(_passwordErrorText == null &&
+                      _emailErrorText == null &&
+                      _emailOrUsernameController.text.isNotEmpty &&
+                      _passwordController.text.isNotEmpty){
+                        log("logging in ...");
+                      }
+                },
                 child: Container(
                   width: 90 * SizeConfig.widthMultiplier!,
                   height: 7 * SizeConfig.heightMultiplier!,
                   decoration: BoxDecoration(
-                    color: AppTheme.primaryLightColor,
+                    color: (_passwordErrorText == null &&
+                            _emailErrorText == null &&
+                            _emailOrUsernameController.text.isNotEmpty &&
+                            _passwordController.text.isNotEmpty)
+                        ? AppTheme.primaryLightColor
+                        : Colors.grey,
                     borderRadius: BorderRadius.circular(
                       2 * SizeConfig.imageSizeMultiplier!,
                     ),
@@ -123,5 +161,27 @@ class _LoginViewState extends State<LoginView> {
         ),
       ),
     );
+  }
+
+  String? get _passwordErrorText {
+    final text = _passwordController.text;
+
+    if (text.isNotEmpty && text.length < 8) {
+      return "short password";
+    }
+    return null;
+  }
+
+  String? get _emailErrorText {
+    final text = _emailOrUsernameController.text;
+    final bool emailValid = RegExp(
+            r"^[a-zA-Z0-9.a-zA-Z0-9.!#$%&'*+-/=?^_`{|}~]+@[a-zA-Z0-9]+\.[a-zA-Z]+")
+        .hasMatch(text);
+
+    if (text.isNotEmpty && !emailValid) {
+      return "wronge email";
+    }
+
+    return null;
   }
 }

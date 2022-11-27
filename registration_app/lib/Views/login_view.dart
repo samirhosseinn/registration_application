@@ -80,19 +80,7 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
             ),
-            heightSpace(2),
-            Align(
-              alignment: Alignment.centerRight,
-              child: TextButton(
-                onPressed: () {
-                  Navigator.of(context).pushNamed(forgotPasswordViewRoute);
-                },
-                child: Text(
-                  "Forgot Password?",
-                  style: AppTheme.blueText.subtitle1,
-                ),
-              ),
-            ),
+           
             heightSpace(8),
             Padding(
               padding: EdgeInsets.symmetric(

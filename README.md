@@ -1,4 +1,4 @@
-simple registration application with dart/flutter.
+simple responsive registration application with dart/flutter.
 using simple crud application : https://github.com/samirhosseinn/CRUD_Script for api
 
 

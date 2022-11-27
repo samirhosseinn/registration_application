@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:registration_app/Responsive/size_config.dart';
 import 'package:registration_app/Views/confrim_email_view.dart';
-import 'package:registration_app/Views/forgot_password_view.dart';
 import 'package:registration_app/Views/login_view.dart';
 import 'package:registration_app/Views/main_view.dart';
 import 'package:registration_app/Views/register_view.dart';
@@ -20,7 +19,6 @@ void main() {
               loginViewRoute: (context) => const LoginView(),
               registerViewRoute: (context) => const RegisterView(),
               confrimEmailRoute: (context) => const ConfrimEmailView(),
-              forgotPasswordViewRoute: (context) => const ForgotPasswordView(),
               mainViewRoute: (context) => const MainView(),
             },
           );

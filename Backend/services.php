@@ -38,6 +38,7 @@ class UserDatabaseService extends Database
             return [
                 "username" => $user["username"],
                 "email" => $user["email"],
+                "name" => $user["name"],
             ];
         } else {
             return [];
@@ -54,6 +55,8 @@ class UserDatabaseService extends Database
             return [
                 "username" => $user["username"],
                 "email" => $user["email"],
+                "name" => $user["name"],
+
             ];
         } else {
             return [];
@@ -77,6 +80,8 @@ class UserDatabaseService extends Database
             return [
                 "username" => $user["username"],
                 "email" => $user["email"],
+                "name" => $user["name"],
+
             ];
         } else {
             return [];
@@ -94,6 +99,8 @@ class UserDatabaseService extends Database
             return [
                 "username" => $user["username"],
                 "email" => $user["email"],
+                "name" => $user["name"],
+
             ];
         } else {
             return [];

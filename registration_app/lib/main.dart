@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:registration_app/Responsive/size_config.dart';
 import 'package:registration_app/Views/confrim_email_view.dart';
 import 'package:registration_app/Views/login_view.dart';
-import 'package:registration_app/Views/main_view.dart';
+import 'package:registration_app/Views/profile_view.dart';
 import 'package:registration_app/Views/register_view.dart';
 import 'package:registration_app/constants/routes.dart';
 
@@ -19,7 +19,7 @@ void main() {
               loginViewRoute: (context) => const LoginView(),
               registerViewRoute: (context) => const RegisterView(),
               confrimEmailRoute: (context) => const ConfrimEmailView(),
-              mainViewRoute: (context) => const MainView(),
+              profileViewRoute: (context) => const ProfileView(),
             },
           );
         }),

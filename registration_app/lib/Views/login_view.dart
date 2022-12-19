@@ -80,7 +80,6 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
             ),
-           
             heightSpace(8),
             Padding(
               padding: EdgeInsets.symmetric(
@@ -97,9 +96,11 @@ class _LoginViewState extends State<LoginView> {
                       );
                       Profile().email = userData["email"];
                       Profile().username = userData["username"];
+                      Profile().name =
+                          userData["name"].isNotEmpty ? userData["name"] : null;
                       if (!mounted) return;
                       Navigator.of(context).pushNamedAndRemoveUntil(
-                        mainViewRoute,
+                        profileViewRoute,
                         (route) => false,
                       );
                     } on CanNotLoginAuthException {

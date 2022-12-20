@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:registration_app/Responsive/size_config.dart';
 import 'package:registration_app/style/style.dart';
 
@@ -19,6 +20,36 @@ Widget customTextField({
         color: Colors.grey,
         size: 5 * SizeConfig.imageSizeMultiplier!,
       ),
+    ),
+  );
+}
+
+Widget otpTextField(
+  BuildContext context,
+  TextEditingController controller,
+  isLast,
+) {
+  return SizedBox(
+    width: 15 * SizeConfig.widthMultiplier!,
+    child: TextField(
+      onChanged: (value) {
+        if (value.length == 1 && !isLast) {
+          FocusScope.of(context).nextFocus();
+        }
+      },
+      controller: controller,
+      cursorColor: AppTheme.primaryLightColor,
+      textAlign: TextAlign.center,
+      keyboardType: TextInputType.number,
+      decoration: InputDecoration(
+        enabledBorder: UnderlineInputBorder(
+          borderSide: BorderSide(color: AppTheme.primaryLightColor),
+        ),
+      ),
+      inputFormatters: [
+        LengthLimitingTextInputFormatter(1),
+        FilteringTextInputFormatter.digitsOnly,
+      ],
     ),
   );
 }

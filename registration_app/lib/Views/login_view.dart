@@ -41,51 +41,51 @@ class _LoginViewState extends State<LoginView> {
         padding: EdgeInsets.symmetric(
           horizontal: 5 * SizeConfig.widthMultiplier!,
         ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Image.asset(
-              Images.login,
-            ),
-            Text(
-              "Login",
-              style: AppTheme.darkPrimaryText.headline5,
-            ),
-            heightSpace(5),
-            TextField(
-              onChanged: (_) => setState(() => {}),
-              controller: _usernameController,
-              decoration: InputDecoration(
-                hintText: "Username",
-                hintStyle: AppTheme.greyText.subtitle1,
-                prefixIcon: Icon(
-                  Icons.person,
-                  color: Colors.grey,
-                  size: 5 * SizeConfig.imageSizeMultiplier!,
+        child: Center(
+          child: Column(
+            children: [
+              Image.asset(
+                Images.login,
+                width: 90 * SizeConfig.widthMultiplier!,
+              ),
+              Align(
+                alignment: Alignment.centerLeft,
+                child: Text(
+                  "Login",
+                  style: AppTheme.darkPrimaryText.headline5,
                 ),
               ),
-            ),
-            heightSpace(3),
-            TextField(
-              onChanged: (_) => setState(() => {}),
-              controller: _passwordController,
-              obscureText: true,
-              decoration: InputDecoration(
-                hintText: "Password",
-                hintStyle: AppTheme.greyText.subtitle1,
-                prefixIcon: Icon(
-                  Icons.password,
-                  color: Colors.grey,
-                  size: 5 * SizeConfig.imageSizeMultiplier!,
+              heightSpace(5),
+              TextField(
+                onChanged: (_) => setState(() => {}),
+                controller: _usernameController,
+                decoration: InputDecoration(
+                  hintText: "Username",
+                  hintStyle: AppTheme.greyText.subtitle1,
+                  prefixIcon: Icon(
+                    Icons.person,
+                    color: Colors.grey,
+                    size: 5 * SizeConfig.imageSizeMultiplier!,
+                  ),
                 ),
               ),
-            ),
-            heightSpace(8),
-            Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: 1 * SizeConfig.widthMultiplier!,
+              heightSpace(3),
+              TextField(
+                onChanged: (_) => setState(() => {}),
+                controller: _passwordController,
+                obscureText: true,
+                decoration: InputDecoration(
+                  hintText: "Password",
+                  hintStyle: AppTheme.greyText.subtitle1,
+                  prefixIcon: Icon(
+                    Icons.password,
+                    color: Colors.grey,
+                    size: 5 * SizeConfig.imageSizeMultiplier!,
+                  ),
+                ),
               ),
-              child: GestureDetector(
+              heightSpace(8),
+              GestureDetector(
                 onTap: () async {
                   if (_usernameController.text.isNotEmpty &&
                       _passwordController.text.isNotEmpty) {
@@ -128,28 +128,28 @@ class _LoginViewState extends State<LoginView> {
                   ),
                 ),
               ),
-            ),
-            heightSpace(4),
-            Padding(
-              padding: EdgeInsets.only(
-                left: 28 * SizeConfig.widthMultiplier!,
-              ),
-              child: Row(
-                children: [
-                  Text("New ?", style: AppTheme.greyText.subtitle1),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(registerViewRoute);
-                    },
-                    child: Text(
-                      "Register",
-                      style: AppTheme.blueText.subtitle1,
+              heightSpace(4),
+              Padding(
+                padding: EdgeInsets.only(
+                  left: 29 * SizeConfig.widthMultiplier!,
+                ),
+                child: Row(
+                  children: [
+                    Text("New ?", style: AppTheme.greyText.subtitle1),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(registerViewRoute);
+                      },
+                      child: Text(
+                        "Register",
+                        style: AppTheme.blueText.subtitle1,
+                      ),
                     ),
-                  ),
-                ],
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

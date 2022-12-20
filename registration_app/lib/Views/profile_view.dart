@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:registration_app/Profile/profile.dart';
-import 'package:registration_app/Responsive/size_config.dart';
+import 'package:registration_app/Responsive/responsive.dart';
+
 import 'package:registration_app/Widgets/space.dart';
 import 'package:registration_app/constants/routes.dart';
 import 'package:registration_app/style/style.dart';
@@ -19,16 +20,16 @@ class _ProfileViewState extends State<ProfileView> {
       body: Column(
         children: [
           Container(
-            width: 100 * SizeConfig.widthMultiplier!,
-            height: 40 * SizeConfig.heightMultiplier!,
+            width: 100 * Responsive().widthConfig,
+            height: 40 * Responsive().heightConfig,
             decoration: BoxDecoration(
               color: AppTheme.primaryLightColor,
               borderRadius: BorderRadius.only(
                 bottomLeft: Radius.circular(
-                  10 * SizeConfig.imageSizeMultiplier!,
+                  10 * Responsive().imageConfig,
                 ),
                 bottomRight: Radius.circular(
-                  10 * SizeConfig.imageSizeMultiplier!,
+                  10 * Responsive().imageConfig,
                 ),
               ),
             ),
@@ -37,20 +38,20 @@ class _ProfileViewState extends State<ProfileView> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   Container(
-                    width: 32 * SizeConfig.widthMultiplier!,
-                    height: 15 * SizeConfig.heightMultiplier!,
+                    width: 32 * Responsive().widthConfig,
+                    height: 15 * Responsive().heightConfig,
                     decoration: BoxDecoration(
                       border: Border.all(
                         color: Colors.white,
-                        width: 0.4 * SizeConfig.imageSizeMultiplier!,
+                        width: 0.4 * Responsive().imageConfig,
                       ),
                       borderRadius: BorderRadius.circular(
-                        100 * SizeConfig.imageSizeMultiplier!,
+                        100 * Responsive().imageConfig,
                       ),
                     ),
                     child: Icon(
                       Icons.person_rounded,
-                      size: 20 * SizeConfig.imageSizeMultiplier!,
+                      size: 20 * Responsive().imageConfig,
                       color: Colors.white,
                     ),
                   ),
@@ -75,12 +76,12 @@ class _ProfileViewState extends State<ProfileView> {
           ),
           heightSpace(10),
           Container(
-            width: 80 * SizeConfig.widthMultiplier!,
-            height: 8 * SizeConfig.heightMultiplier!,
+            width: 80 * Responsive().widthConfig,
+            height: 8 * Responsive().heightConfig,
             decoration: BoxDecoration(
               color: AppTheme.primaryLightColor,
               borderRadius: BorderRadius.circular(
-                5 * SizeConfig.imageSizeMultiplier!,
+                5 * Responsive().imageConfig,
               ),
             ),
             child: Center(
@@ -103,7 +104,7 @@ class _ProfileViewState extends State<ProfileView> {
             },
             child: Icon(
               Icons.logout,
-              size: 20 * SizeConfig.imageSizeMultiplier!,
+              size: 20 * Responsive().imageConfig,
               color: AppTheme.primaryDarkColor,
             ),
           ),

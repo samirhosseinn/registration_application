@@ -2,7 +2,8 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:registration_app/Exceptions/exceptions.dart';
 import 'package:registration_app/Profile/profile.dart';
-import 'package:registration_app/Responsive/size_config.dart';
+import 'package:registration_app/Responsive/responsive.dart';
+
 import 'package:registration_app/Services/auth_service.dart';
 import 'package:registration_app/Widgets/space.dart';
 import 'package:registration_app/constants/routes.dart';
@@ -39,14 +40,15 @@ class _LoginViewState extends State<LoginView> {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: 5 * SizeConfig.widthMultiplier!,
+          horizontal: 5 * Responsive().widthConfig,
         ),
         child: Center(
           child: Column(
             children: [
               Image.asset(
                 Images.login,
-                width: 90 * SizeConfig.widthMultiplier!,
+                width: 90 * Responsive().widthConfig,
+                height: 40 * Responsive().heightConfig,
               ),
               Align(
                 alignment: Alignment.centerLeft,
@@ -65,7 +67,7 @@ class _LoginViewState extends State<LoginView> {
                   prefixIcon: Icon(
                     Icons.person,
                     color: Colors.grey,
-                    size: 5 * SizeConfig.imageSizeMultiplier!,
+                    size: 5 * Responsive().imageConfig,
                   ),
                 ),
               ),
@@ -80,7 +82,7 @@ class _LoginViewState extends State<LoginView> {
                   prefixIcon: Icon(
                     Icons.password,
                     color: Colors.grey,
-                    size: 5 * SizeConfig.imageSizeMultiplier!,
+                    size: 5 * Responsive().imageConfig,
                   ),
                 ),
               ),
@@ -109,15 +111,15 @@ class _LoginViewState extends State<LoginView> {
                   }
                 },
                 child: Container(
-                  width: 90 * SizeConfig.widthMultiplier!,
-                  height: 7 * SizeConfig.heightMultiplier!,
+                  width: 90 * Responsive().widthConfig,
+                  height: 7 * Responsive().heightConfig,
                   decoration: BoxDecoration(
                     color: (_usernameController.text.isNotEmpty &&
                             _passwordController.text.isNotEmpty)
                         ? AppTheme.primaryLightColor
                         : Colors.grey,
                     borderRadius: BorderRadius.circular(
-                      2 * SizeConfig.imageSizeMultiplier!,
+                      2 * Responsive().imageConfig,
                     ),
                   ),
                   child: Center(
@@ -129,24 +131,20 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
               heightSpace(4),
-              Padding(
-                padding: EdgeInsets.only(
-                  left: 29 * SizeConfig.widthMultiplier!,
-                ),
-                child: Row(
-                  children: [
-                    Text("New ?", style: AppTheme.greyText.subtitle1),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(registerViewRoute);
-                      },
-                      child: Text(
-                        "Register",
-                        style: AppTheme.blueText.subtitle1,
-                      ),
+              Row(
+                mainAxisSize: MainAxisSize.min,
+                children: [
+                  Text("New ?", style: AppTheme.greyText.subtitle1),
+                  TextButton(
+                    onPressed: () {
+                      Navigator.of(context).pushNamed(registerViewRoute);
+                    },
+                    child: Text(
+                      "Register",
+                      style: AppTheme.blueText.subtitle1,
                     ),
-                  ],
-                ),
+                  ),
+                ],
               ),
             ],
           ),

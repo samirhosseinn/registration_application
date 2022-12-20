@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:registration_app/Responsive/size_config.dart';
+import 'package:registration_app/Responsive/responsive.dart';
 import 'package:registration_app/Views/confrim_email_view.dart';
 import 'package:registration_app/Views/login_view.dart';
 import 'package:registration_app/Views/profile_view.dart';
@@ -9,20 +9,16 @@ import 'package:registration_app/constants/routes.dart';
 void main() {
   runApp(LayoutBuilder(
     builder: ((context, constraints) {
-      return OrientationBuilder(
-        builder: ((context, orientation) {
-          SizeConfig().init(constraints, orientation);
-          return MaterialApp(
-            debugShowCheckedModeBanner: false,
-            home: const MyApp(),
-            routes: {
-              loginViewRoute: (context) => const LoginView(),
-              registerViewRoute: (context) => const RegisterView(),
-              confirmEmailRoute: (context) => const ConfrimEmailView(),
-              profileViewRoute: (context) => const ProfileView(),
-            },
-          );
-        }),
+      Responsive().init(constraints: constraints);
+      return MaterialApp(
+        debugShowCheckedModeBanner: false,
+        home: const MyApp(),
+        routes: {
+          loginViewRoute: (context) => const LoginView(),
+          registerViewRoute: (context) => const RegisterView(),
+          confirmEmailRoute: (context) => const ConfrimEmailView(),
+          profileViewRoute: (context) => const ProfileView(),
+        },
       );
     }),
   ));

@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:registration_app/Responsive/size_config.dart';
+import 'package:registration_app/Responsive/responsive.dart';
 
 class AppTheme {
   AppTheme._();
@@ -24,47 +24,47 @@ class AppTheme {
   static final TextStyle _headline1White = TextStyle(
     color: Colors.white,
     fontFamily: primaryFontFamily,
-    fontSize: 5 * SizeConfig.textMultiplier!,
+    fontSize: 5 * Responsive().textConfig,
   );
   static final TextStyle _headline2White = TextStyle(
     color: Colors.white,
     fontFamily: primaryFontFamily,
-    fontSize: 4.75 * SizeConfig.textMultiplier!,
+    fontSize: 4.75 * Responsive().textConfig,
   );
   static final TextStyle _headline3White = TextStyle(
     color: Colors.white,
     fontFamily: primaryFontFamily,
-    fontSize: 4.5 * SizeConfig.textMultiplier!,
+    fontSize: 4.5 * Responsive().textConfig,
   );
   static final TextStyle _headline4White = TextStyle(
     color: Colors.white,
     fontFamily: primaryFontFamily,
-    fontSize: 4 * SizeConfig.textMultiplier!,
+    fontSize: 4 * Responsive().textConfig,
   );
   static final TextStyle _headline5White = TextStyle(
     color: Colors.white,
     fontFamily: primaryFontFamily,
-    fontSize: 3.5 * SizeConfig.textMultiplier!,
+    fontSize: 3.5 * Responsive().textConfig,
   );
   static final TextStyle _headline6White = TextStyle(
     color: Colors.white,
     fontFamily: primaryFontFamily,
-    fontSize: 3 * SizeConfig.textMultiplier!,
+    fontSize: 3 * Responsive().textConfig,
   );
   static final TextStyle _buttonWhite = TextStyle(
     color: Colors.white,
     fontFamily: primaryFontFamily,
-    fontSize: 2.5 * SizeConfig.textMultiplier!,
+    fontSize: 2.5 * Responsive().textConfig,
   );
   static final TextStyle _subtitle1White = TextStyle(
     color: Colors.white,
     fontFamily: primaryFontFamily,
-    fontSize: 2 * SizeConfig.textMultiplier!,
+    fontSize: 2 * Responsive().textConfig,
   );
   static final TextStyle _subtitle2White = TextStyle(
     color: Colors.white,
     fontFamily: primaryFontFamily,
-    fontSize: 1.5 * SizeConfig.textMultiplier!,
+    fontSize: 1.5 * Responsive().textConfig,
   );
   // -------------------------  whiteText --------------------------------
 
@@ -83,47 +83,47 @@ class AppTheme {
   static final TextStyle _headline1Black = TextStyle(
     color: Colors.black,
     fontFamily: primaryFontFamily,
-    fontSize: 5 * SizeConfig.textMultiplier!,
+    fontSize: 5 * Responsive().textConfig,
   );
   static final TextStyle _headline2Black = TextStyle(
     color: Colors.black,
     fontFamily: primaryFontFamily,
-    fontSize: 4.75 * SizeConfig.textMultiplier!,
+    fontSize: 4.75 * Responsive().textConfig,
   );
   static final TextStyle _headline3Black = TextStyle(
     color: Colors.black,
     fontFamily: primaryFontFamily,
-    fontSize: 4.5 * SizeConfig.textMultiplier!,
+    fontSize: 4.5 * Responsive().textConfig,
   );
   static final TextStyle _headline4Black = TextStyle(
     color: Colors.black,
     fontFamily: primaryFontFamily,
-    fontSize: 4 * SizeConfig.textMultiplier!,
+    fontSize: 4 * Responsive().textConfig,
   );
   static final TextStyle _headline5Black = TextStyle(
     color: Colors.black,
     fontFamily: primaryFontFamily,
-    fontSize: 3.5 * SizeConfig.textMultiplier!,
+    fontSize: 3.5 * Responsive().textConfig,
   );
   static final TextStyle _headline6Black = TextStyle(
     color: Colors.black,
     fontFamily: primaryFontFamily,
-    fontSize: 3 * SizeConfig.textMultiplier!,
+    fontSize: 3 * Responsive().textConfig,
   );
   static final TextStyle _buttonBlack = TextStyle(
     color: Colors.black,
     fontFamily: primaryFontFamily,
-    fontSize: 2.5 * SizeConfig.textMultiplier!,
+    fontSize: 2.5 * Responsive().textConfig,
   );
   static final TextStyle _subtitle1Black = TextStyle(
     color: Colors.black,
     fontFamily: primaryFontFamily,
-    fontSize: 2 * SizeConfig.textMultiplier!,
+    fontSize: 2 * Responsive().textConfig,
   );
   static final TextStyle _subtitle2Black = TextStyle(
     color: Colors.black,
     fontFamily: primaryFontFamily,
-    fontSize: 1.5 * SizeConfig.textMultiplier!,
+    fontSize: 1.5 * Responsive().textConfig,
   );
   // -------------------------  BlackText --------------------------------
 
@@ -142,47 +142,47 @@ class AppTheme {
   static final TextStyle _headline1Grey = TextStyle(
     color: Colors.grey,
     fontFamily: primaryFontFamily,
-    fontSize: 5 * SizeConfig.textMultiplier!,
+    fontSize: 5 * Responsive().textConfig,
   );
   static final TextStyle _headline2Grey = TextStyle(
     color: Colors.grey,
     fontFamily: primaryFontFamily,
-    fontSize: 4.75 * SizeConfig.textMultiplier!,
+    fontSize: 4.75 * Responsive().textConfig,
   );
   static final TextStyle _headline3Grey = TextStyle(
     color: Colors.grey,
     fontFamily: primaryFontFamily,
-    fontSize: 4.5 * SizeConfig.textMultiplier!,
+    fontSize: 4.5 * Responsive().textConfig,
   );
   static final TextStyle _headline4Grey = TextStyle(
     color: Colors.grey,
     fontFamily: primaryFontFamily,
-    fontSize: 4 * SizeConfig.textMultiplier!,
+    fontSize: 4 * Responsive().textConfig,
   );
   static final TextStyle _headline5Grey = TextStyle(
     color: Colors.grey,
     fontFamily: primaryFontFamily,
-    fontSize: 3.5 * SizeConfig.textMultiplier!,
+    fontSize: 3.5 * Responsive().textConfig,
   );
   static final TextStyle _headline6Grey = TextStyle(
     color: Colors.grey,
     fontFamily: primaryFontFamily,
-    fontSize: 3 * SizeConfig.textMultiplier!,
+    fontSize: 3 * Responsive().textConfig,
   );
   static final TextStyle _buttonGrey = TextStyle(
     color: Colors.grey,
     fontFamily: primaryFontFamily,
-    fontSize: 2.5 * SizeConfig.textMultiplier!,
+    fontSize: 2.5 * Responsive().textConfig,
   );
   static final TextStyle _subtitle1Grey = TextStyle(
     color: Colors.grey,
     fontFamily: primaryFontFamily,
-    fontSize: 2 * SizeConfig.textMultiplier!,
+    fontSize: 2 * Responsive().textConfig,
   );
   static final TextStyle _subtitle2Grey = TextStyle(
     color: Colors.grey,
     fontFamily: primaryFontFamily,
-    fontSize: 1.5 * SizeConfig.textMultiplier!,
+    fontSize: 1.5 * Responsive().textConfig,
   );
   // -------------------------  GreyText --------------------------------
 
@@ -201,47 +201,47 @@ class AppTheme {
   static final TextStyle _headline1Red = TextStyle(
     color: Colors.red,
     fontFamily: primaryFontFamily,
-    fontSize: 5 * SizeConfig.textMultiplier!,
+    fontSize: 5 * Responsive().textConfig,
   );
   static final TextStyle _headline2Red = TextStyle(
     color: Colors.red,
     fontFamily: primaryFontFamily,
-    fontSize: 4.75 * SizeConfig.textMultiplier!,
+    fontSize: 4.75 * Responsive().textConfig,
   );
   static final TextStyle _headline3Red = TextStyle(
     color: Colors.red,
     fontFamily: primaryFontFamily,
-    fontSize: 4.5 * SizeConfig.textMultiplier!,
+    fontSize: 4.5 * Responsive().textConfig,
   );
   static final TextStyle _headline4Red = TextStyle(
     color: Colors.red,
     fontFamily: primaryFontFamily,
-    fontSize: 4 * SizeConfig.textMultiplier!,
+    fontSize: 4 * Responsive().textConfig,
   );
   static final TextStyle _headline5Red = TextStyle(
     color: Colors.red,
     fontFamily: primaryFontFamily,
-    fontSize: 3.5 * SizeConfig.textMultiplier!,
+    fontSize: 3.5 * Responsive().textConfig,
   );
   static final TextStyle _headline6Red = TextStyle(
     color: Colors.red,
     fontFamily: primaryFontFamily,
-    fontSize: 3 * SizeConfig.textMultiplier!,
+    fontSize: 3 * Responsive().textConfig,
   );
   static final TextStyle _buttonRed = TextStyle(
     color: Colors.red,
     fontFamily: primaryFontFamily,
-    fontSize: 2.5 * SizeConfig.textMultiplier!,
+    fontSize: 2.5 * Responsive().textConfig,
   );
   static final TextStyle _subtitle1Red = TextStyle(
     color: Colors.red,
     fontFamily: primaryFontFamily,
-    fontSize: 2 * SizeConfig.textMultiplier!,
+    fontSize: 2 * Responsive().textConfig,
   );
   static final TextStyle _subtitle2Red = TextStyle(
     color: Colors.red,
     fontFamily: primaryFontFamily,
-    fontSize: 1.5 * SizeConfig.textMultiplier!,
+    fontSize: 1.5 * Responsive().textConfig,
   );
   // -------------------------  RedText --------------------------------
 
@@ -260,47 +260,47 @@ class AppTheme {
   static final TextStyle _headline1Blue = TextStyle(
     color: Colors.blue,
     fontFamily: primaryFontFamily,
-    fontSize: 5 * SizeConfig.textMultiplier!,
+    fontSize: 5 * Responsive().textConfig,
   );
   static final TextStyle _headline2Blue = TextStyle(
     color: Colors.blue,
     fontFamily: primaryFontFamily,
-    fontSize: 4.75 * SizeConfig.textMultiplier!,
+    fontSize: 4.75 * Responsive().textConfig,
   );
   static final TextStyle _headline3Blue = TextStyle(
     color: Colors.blue,
     fontFamily: primaryFontFamily,
-    fontSize: 4.5 * SizeConfig.textMultiplier!,
+    fontSize: 4.5 * Responsive().textConfig,
   );
   static final TextStyle _headline4Blue = TextStyle(
     color: Colors.blue,
     fontFamily: primaryFontFamily,
-    fontSize: 4 * SizeConfig.textMultiplier!,
+    fontSize: 4 * Responsive().textConfig,
   );
   static final TextStyle _headline5Blue = TextStyle(
     color: Colors.blue,
     fontFamily: primaryFontFamily,
-    fontSize: 3.5 * SizeConfig.textMultiplier!,
+    fontSize: 3.5 * Responsive().textConfig,
   );
   static final TextStyle _headline6Blue = TextStyle(
     color: Colors.blue,
     fontFamily: primaryFontFamily,
-    fontSize: 3 * SizeConfig.textMultiplier!,
+    fontSize: 3 * Responsive().textConfig,
   );
   static final TextStyle _buttonBlue = TextStyle(
     color: Colors.blue,
     fontFamily: primaryFontFamily,
-    fontSize: 2.5 * SizeConfig.textMultiplier!,
+    fontSize: 2.5 * Responsive().textConfig,
   );
   static final TextStyle _subtitle1Blue = TextStyle(
     color: Colors.blue,
     fontFamily: primaryFontFamily,
-    fontSize: 2 * SizeConfig.textMultiplier!,
+    fontSize: 2 * Responsive().textConfig,
   );
   static final TextStyle _subtitle2Blue = TextStyle(
     color: Colors.blue,
     fontFamily: primaryFontFamily,
-    fontSize: 1.5 * SizeConfig.textMultiplier!,
+    fontSize: 1.5 * Responsive().textConfig,
   );
   // -------------------------  RedText --------------------------------
 
@@ -319,47 +319,47 @@ class AppTheme {
   static final TextStyle _headline1LightPrimary = TextStyle(
     color: primaryLightColor,
     fontFamily: primaryFontFamily,
-    fontSize: 5 * SizeConfig.textMultiplier!,
+    fontSize: 5 * Responsive().textConfig,
   );
   static final TextStyle _headline2LightPrimary = TextStyle(
     color: primaryLightColor,
     fontFamily: primaryFontFamily,
-    fontSize: 4.75 * SizeConfig.textMultiplier!,
+    fontSize: 4.75 * Responsive().textConfig,
   );
   static final TextStyle _headline3LightPrimary = TextStyle(
     color: primaryLightColor,
     fontFamily: primaryFontFamily,
-    fontSize: 4.5 * SizeConfig.textMultiplier!,
+    fontSize: 4.5 * Responsive().textConfig,
   );
   static final TextStyle _headline4LightPrimary = TextStyle(
     color: primaryLightColor,
     fontFamily: primaryFontFamily,
-    fontSize: 4 * SizeConfig.textMultiplier!,
+    fontSize: 4 * Responsive().textConfig,
   );
   static final TextStyle _headline5LightPrimary = TextStyle(
     color: primaryLightColor,
     fontFamily: primaryFontFamily,
-    fontSize: 3.5 * SizeConfig.textMultiplier!,
+    fontSize: 3.5 * Responsive().textConfig,
   );
   static final TextStyle _headline6LightPrimary = TextStyle(
     color: primaryLightColor,
     fontFamily: primaryFontFamily,
-    fontSize: 3 * SizeConfig.textMultiplier!,
+    fontSize: 3 * Responsive().textConfig,
   );
   static final TextStyle _buttonLightPrimary = TextStyle(
     color: primaryLightColor,
     fontFamily: primaryFontFamily,
-    fontSize: 2.5 * SizeConfig.textMultiplier!,
+    fontSize: 2.5 * Responsive().textConfig,
   );
   static final TextStyle _subtitle1LightPrimary = TextStyle(
     color: primaryLightColor,
     fontFamily: primaryFontFamily,
-    fontSize: 2 * SizeConfig.textMultiplier!,
+    fontSize: 2 * Responsive().textConfig,
   );
   static final TextStyle _subtitle2LightPrimary = TextStyle(
     color: primaryLightColor,
     fontFamily: primaryFontFamily,
-    fontSize: 1.5 * SizeConfig.textMultiplier!,
+    fontSize: 1.5 * Responsive().textConfig,
   );
   // -------------------------  lightPrimaryText --------------------------------
 
@@ -378,47 +378,47 @@ class AppTheme {
   static final TextStyle _headline1DarkPrimary = TextStyle(
     color: primaryDarkColor,
     fontFamily: primaryFontFamily,
-    fontSize: 5 * SizeConfig.textMultiplier!,
+    fontSize: 5 * Responsive().textConfig,
   );
   static final TextStyle _headline2DarkPrimary = TextStyle(
     color: primaryDarkColor,
     fontFamily: primaryFontFamily,
-    fontSize: 4.75 * SizeConfig.textMultiplier!,
+    fontSize: 4.75 * Responsive().textConfig,
   );
   static final TextStyle _headline3DarkPrimary = TextStyle(
     color: primaryDarkColor,
     fontFamily: primaryFontFamily,
-    fontSize: 4.5 * SizeConfig.textMultiplier!,
+    fontSize: 4.5 * Responsive().textConfig,
   );
   static final TextStyle _headline4DarkPrimary = TextStyle(
     color: primaryDarkColor,
     fontFamily: primaryFontFamily,
-    fontSize: 4 * SizeConfig.textMultiplier!,
+    fontSize: 4 * Responsive().textConfig,
   );
   static final TextStyle _headline5DarkPrimary = TextStyle(
     color: primaryDarkColor,
     fontFamily: primaryFontFamily,
-    fontSize: 3.5 * SizeConfig.textMultiplier!,
+    fontSize: 3.5 * Responsive().textConfig,
   );
   static final TextStyle _headline6DarkPrimary = TextStyle(
     color: primaryDarkColor,
     fontFamily: primaryFontFamily,
-    fontSize: 3 * SizeConfig.textMultiplier!,
+    fontSize: 3 * Responsive().textConfig,
   );
   static final TextStyle _buttonDarkPrimary = TextStyle(
     color: primaryDarkColor,
     fontFamily: primaryFontFamily,
-    fontSize: 2.5 * SizeConfig.textMultiplier!,
+    fontSize: 2.5 * Responsive().textConfig,
   );
   static final TextStyle _subtitle1DarkPrimary = TextStyle(
     color: primaryDarkColor,
     fontFamily: primaryFontFamily,
-    fontSize: 2 * SizeConfig.textMultiplier!,
+    fontSize: 2 * Responsive().textConfig,
   );
   static final TextStyle _subtitle2DarkPrimary = TextStyle(
     color: primaryDarkColor,
     fontFamily: primaryFontFamily,
-    fontSize: 1.5 * SizeConfig.textMultiplier!,
+    fontSize: 1.5 * Responsive().textConfig,
   );
   // -------------------------  DarkPrimaryText --------------------------------
 

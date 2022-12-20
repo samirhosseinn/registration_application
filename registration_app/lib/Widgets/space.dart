@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:registration_app/Responsive/size_config.dart';
+import 'package:registration_app/Responsive/responsive.dart';
+
 
 Widget widthSpace(double size) {
   return SizedBox(
-    width: size * SizeConfig.widthMultiplier!,
+    width: size * Responsive().widthConfig,
   );
 }
 
 Widget heightSpace(double size) {
   return SizedBox(
-    height: size * SizeConfig.heightMultiplier!,
+    height: size * Responsive().heightConfig,
   );
 }

@@ -1,7 +1,8 @@
 import 'dart:developer';
 
 import 'package:flutter/material.dart';
-import 'package:registration_app/Responsive/size_config.dart';
+import 'package:registration_app/Responsive/responsive.dart';
+
 import 'package:registration_app/Widgets/space.dart';
 import 'package:registration_app/Widgets/text_filed.dart';
 import 'package:registration_app/style/images.dart';
@@ -43,14 +44,15 @@ class _ConfrimEmailViewState extends State<ConfrimEmailView> {
     return Scaffold(
       body: Padding(
         padding: EdgeInsets.symmetric(
-          horizontal: 5 * SizeConfig.widthMultiplier!,
+          horizontal: 5 * Responsive().widthConfig,
         ),
         child: Center(
           child: Column(
             children: [
               Image.asset(
                 Images.confrimEmail,
-                width: 90 * SizeConfig.widthMultiplier!,
+                width: 90 * Responsive().widthConfig,
+                height: 40 * Responsive().heightConfig,
               ),
               heightSpace(5),
               Align(
@@ -77,12 +79,12 @@ class _ConfrimEmailViewState extends State<ConfrimEmailView> {
                   log("confirm email");
                 },
                 child: Container(
-                  width: 80 * SizeConfig.widthMultiplier!,
-                  height: 8 * SizeConfig.heightMultiplier!,
+                  width: 80 * Responsive().widthConfig,
+                  height: 8 * Responsive().heightConfig,
                   decoration: BoxDecoration(
                     color: AppTheme.primaryLightColor,
                     borderRadius: BorderRadius.circular(
-                      5 * SizeConfig.imageSizeMultiplier!,
+                      5 * Responsive().imageConfig,
                     ),
                   ),
                   child: Center(

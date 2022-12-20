@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:registration_app/Responsive/size_config.dart';
+import 'package:registration_app/Responsive/responsive.dart';
 import 'package:registration_app/style/style.dart';
 
 Widget customTextField({
@@ -18,7 +18,7 @@ Widget customTextField({
       prefixIcon: Icon(
         icon,
         color: Colors.grey,
-        size: 5 * SizeConfig.imageSizeMultiplier!,
+        size: 5 * Responsive().imageConfig,
       ),
     ),
   );
@@ -30,7 +30,7 @@ Widget otpTextField(
   isLast,
 ) {
   return SizedBox(
-    width: 15 * SizeConfig.widthMultiplier!,
+    width: 15 * Responsive().widthConfig,
     child: TextField(
       onChanged: (value) {
         if (value.length == 1 && !isLast) {

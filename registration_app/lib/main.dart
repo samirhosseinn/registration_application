@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:registration_app/Responsive/responsive.dart';
 import 'package:registration_app/Views/change_password_view.dart';
 import 'package:registration_app/Views/confrim_email_view.dart';
+import 'package:registration_app/Views/forgot_password_view.dart';
 import 'package:registration_app/Views/login_view.dart';
 import 'package:registration_app/Views/profile_view.dart';
 import 'package:registration_app/Views/register_view.dart';
@@ -20,6 +21,7 @@ void main() {
           confirmEmailRoute: (context) => const ConfrimEmailView(),
           profileViewRoute: (context) => const ProfileView(),
           changePasswordViewRoute: (context) => const ChangePasswordView(),
+          forgotPasswordViewRoute: (context) => const ForgotPasswordView(),
         },
       );
     }),
@@ -55,7 +57,7 @@ class _MyAppState extends State<MyApp> {
     await Future.delayed(const Duration(seconds: 1));
     if (!mounted) return;
     Navigator.of(context).pushNamedAndRemoveUntil(
-      changePasswordViewRoute,
+      loginViewRoute,
       (route) => false,
     );
   }

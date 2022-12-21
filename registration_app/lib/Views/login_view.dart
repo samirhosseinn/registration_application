@@ -87,6 +87,19 @@ class _LoginViewState extends State<LoginView> {
                 ),
               ),
               heightSpace(8),
+              Align(
+                alignment: Alignment.centerRight,
+                child: GestureDetector(
+                  onTap: () {
+                    Navigator.of(context).pushNamed(forgotPasswordViewRoute);
+                  },
+                  child: Text(
+                    "forgot password?",
+                    style: AppTheme.lightPrimaryText.subtitle1,
+                  ),
+                ),
+              ),
+              heightSpace(1),
               GestureDetector(
                 onTap: () async {
                   if (_usernameController.text.isNotEmpty &&

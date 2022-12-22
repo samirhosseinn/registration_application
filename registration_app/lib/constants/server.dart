@@ -26,3 +26,26 @@ final Map sendOTPBody = {
   "email": null,
   "otp": null,
 };
+
+final Map sendForgotPasswordBody = {
+  "user": user,
+  "pass": pass,
+  "mode": "sendForgotPassword",
+  "email": null,
+  "otp": null,
+};
+
+final Map checkUserExistBody = {
+  "user": user,
+  "pass": pass,
+  "mode": "checkUserExist",
+  "email": null,
+};
+
+final Map changePasswordBody = {
+  "user": user,
+  "pass": pass,
+  "mode": "changePassword",
+  "email": null,
+  "password": null,
+};

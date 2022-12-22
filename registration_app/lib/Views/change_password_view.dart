@@ -1,12 +1,17 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:registration_app/Responsive/responsive.dart';
+import 'package:registration_app/Services/auth_service.dart';
 import 'package:registration_app/Widgets/space.dart';
+import 'package:registration_app/constants/routes.dart';
 import 'package:registration_app/style/images.dart';
 import 'package:registration_app/style/style.dart';
 
 class ChangePasswordView extends StatefulWidget {
-  const ChangePasswordView({super.key});
+  final String email;
+  const ChangePasswordView({
+    super.key,
+    required this.email,
+  });
 
   @override
   State<ChangePasswordView> createState() => _ChangePasswordViewState();
@@ -20,6 +25,7 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
   void initState() {
     _password = TextEditingController();
     _rePassword = TextEditingController();
+
     super.initState();
   }
 
@@ -94,12 +100,18 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
               ),
               heightSpace(10),
               GestureDetector(
-                onTap: () {
+                onTap: () async {
                   if (_password.text.isNotEmpty &&
                       _rePassword.text.isNotEmpty &&
                       _passwordErrorText == null &&
                       _rePasswordErrorText == null) {
-                    log("changing password");
+                    await AuthService.changePassword(
+                      email: widget.email,
+                      password: _password.text,
+                    );
+
+                    if (!mounted) return;
+                    Navigator.of(context).pushNamed(loginViewRoute);
                   }
                 },
                 child: Container(

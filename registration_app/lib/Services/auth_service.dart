@@ -44,4 +44,35 @@ class AuthService {
     await post(url, body: sendOTPBody);
     return otp;
   }
+
+  static Future<int> sendForgotPassword({required String email}) async {
+    int otp = 1000 + Random().nextInt(9999 - 1000);
+
+    sendForgotPasswordBody["email"] = email;
+    sendForgotPasswordBody["otp"] = otp.toString();
+
+    await post(url, body: sendForgotPasswordBody);
+    return otp;
+  }
+
+  static Future<bool> checkUserExist({required String email}) async {
+    checkUserExistBody["email"] = email;
+
+    var res = await post(url, body: checkUserExistBody);
+    if (utf8.decode(res.bodyBytes) == "true") {
+      return true;
+    } else {
+      return false;
+    }
+  }
+
+  static Future<void> changePassword({
+    required String email,
+    required String password,
+  }) async {
+    changePasswordBody["email"] = email;
+    changePasswordBody["password"] = password;
+
+    await post(url, body: changePasswordBody);
+  }
 }

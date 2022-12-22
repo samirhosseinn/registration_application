@@ -107,27 +107,29 @@ class UserDatabaseService extends Database
         }
     }
 
+
+
     //Update (U in CRUD)
-    public function updateUser($username, $attr, $value)
+    public function updateUser($email, $attr, $value)
     {
-        $user = $this->readUserFromUsername($username);
+        $user = $this->readUserFromEmail($email);
         if (!empty($user)) {
             # because i check attribute(attr) in switch statment i will be sure that script don't face " SQL Injection " 
-            $query = "UPDATE users SET $attr = ? WHERE username = ?";
+            $query = "UPDATE users SET $attr = ? WHERE email = ?";
             switch ($attr) {
                 case "username":
                     $stmt = $this->connect()->prepare($query);
-                    $stmt->execute([$value, $username]);
+                    $stmt->execute([$value, $email]);
                     return true;
                     break;
                 case "email":
                     $stmt = $this->connect()->prepare($query);
-                    $stmt->execute([$value, $username]);
+                    $stmt->execute([$value, $email]);
                     return true;
                     break;
                 case "password":
                     $stmt = $this->connect()->prepare($query);
-                    $stmt->execute([$value, $username]);
+                    $stmt->execute([$value, $email]);
                     return true;
                     break;
                 default:
@@ -161,6 +163,17 @@ class Email
         $to = $email;
         $subject = "OTP code";
         $message = "Welcome to application\nhere is your otp code:\n" . $otp;
+        $headers = ["From: $from"];
+
+        mail($to, $subject, $message, implode('\r\n', $headers));
+    }
+
+    public static function sendForgotPassword($email, $otp)
+    {
+        $from = "amirpythonproject@gmail.com";
+        $to = $email;
+        $subject = "Forgot Password";
+        $message = "for changing your password enter this code in application:\n" . $otp;
         $headers = ["From: $from"];
 
         mail($to, $subject, $message, implode('\r\n', $headers));

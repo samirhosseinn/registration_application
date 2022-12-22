@@ -1,7 +1,8 @@
 import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:registration_app/Responsive/responsive.dart';
+import 'package:registration_app/Services/auth_service.dart';
+import 'package:registration_app/Views/confrim_email_view.dart';
 import 'package:registration_app/Widgets/space.dart';
 import 'package:registration_app/style/images.dart';
 import 'package:registration_app/style/style.dart';
@@ -74,7 +75,23 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
               GestureDetector(
                 onTap: () async {
                   if (_email.text.isNotEmpty && _emailErrorText == null) {
-                    log("sending email");
+                    if (await AuthService.checkUserExist(email: _email.text)) {
+                      int otp = await AuthService.sendForgotPassword(email: _email.text);
+                      if (!mounted) return;
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ConfrimEmailView(
+                            firstOtp: otp,
+                            email: _email.text,
+                            username: "",
+                            password: "",
+                            isUserRegistered: true,
+                          ),
+                        ),
+                      );
+                    } else {
+                      log("user not exist");
+                    }
                   }
                 },
                 child: Container(

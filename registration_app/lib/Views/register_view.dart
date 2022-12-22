@@ -46,156 +46,150 @@ class _RegisterViewState extends State<RegisterView> {
           horizontal: 5 * Responsive().widthConfig,
         ),
         child: Center(
-          child: Column(
-            children: [
-              Image.asset(
-                Images.register,
-                width: 90 * Responsive().widthConfig,
-                height: 40 * Responsive().heightConfig,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Register",
-                  style: AppTheme.darkPrimaryText.headline5,
-                ),
-              ),
-              heightSpace(5),
-              TextField(
-                onChanged: (_) => setState(() => {}),
-                controller: _usernameController,
-                decoration: InputDecoration(
-                  hintText: "Username",
-                  hintStyle: AppTheme.greyText.subtitle1,
-                  errorText: _usernameErrorText,
-                  errorStyle: TextStyle(
-                    color: Colors.red,
-                    fontFamily: AppTheme.primaryFontFamily,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.person,
-                    color: Colors.grey,
-                    size: 5 * Responsive().imageConfig,
-                  ),
-                ),
-              ),
-              heightSpace(3),
-              TextField(
-                onChanged: (_) => setState(() => {}),
-                controller: _emailController,
-                decoration: InputDecoration(
-                  hintText: "Email",
-                  hintStyle: AppTheme.greyText.subtitle1,
-                  errorText: _emailErrorText,
-                  errorStyle: TextStyle(
-                    color: Colors.red,
-                    fontFamily: AppTheme.primaryFontFamily,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.email,
-                    color: Colors.grey,
-                    size: 5 * Responsive().imageConfig,
-                  ),
-                ),
-              ),
-              heightSpace(3),
-              TextField(
-                onChanged: (_) => setState(() => {}),
-                controller: _passwordController,
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: "Password",
-                  hintStyle: AppTheme.greyText.subtitle1,
-                  errorText: _passwordErrorText,
-                  errorStyle: TextStyle(
-                    color: Colors.red,
-                    fontFamily: AppTheme.primaryFontFamily,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.password,
-                    color: Colors.grey,
-                    size: 5 * Responsive().imageConfig,
-                  ),
-                ),
-              ),
-              heightSpace(4),
-              GestureDetector(
-                onTap: () async {
-                  if (_passwordErrorText == null &&
-                      _emailErrorText == null &&
-                      _usernameErrorText == null &&
-                      _emailController.text.isNotEmpty &&
-                      _passwordController.text.isNotEmpty &&
-                      _usernameController.text.isNotEmpty) {
-                    try {
-                      // await AuthService.register(
-                      //   email: _emailController.text,
-                      //   username: _usernameController.text,
-                      //   password: _passwordController.text,
-                      // );
-                      // log("registred");
-                      // if (!mounted) return;
-                      // Navigator.of(context).pushNamed(loginViewRoute);
-                      int otp = await AuthService.sendOTP(
-                        email: _emailController.text,
-                      );
-                      if (!mounted) return;
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => ConfrimEmailView(
-                            firstOtp: otp,
-                            username: _usernameController.text,
-                            email: _emailController.text,
-                            password: _passwordController.text,
-                          ),
-                        ),
-                      );
-                    } on UserAlredyExistAuthException {
-                      log("user already exist");
-                    }
-                  }
-                },
-                child: Container(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset(
+                  Images.register,
                   width: 90 * Responsive().widthConfig,
-                  height: 7 * Responsive().heightConfig,
-                  decoration: BoxDecoration(
-                    color: (_passwordErrorText == null &&
-                            _emailErrorText == null &&
-                            _usernameErrorText == null &&
-                            _emailController.text.isNotEmpty &&
-                            _passwordController.text.isNotEmpty &&
-                            _usernameController.text.isNotEmpty)
-                        ? AppTheme.primaryLightColor
-                        : Colors.grey,
-                    borderRadius: BorderRadius.circular(
-                      2 * Responsive().imageConfig,
-                    ),
+                  height: 40 * Responsive().heightConfig,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Register",
+                    style: AppTheme.darkPrimaryText.headline5,
                   ),
-                  child: Center(
-                    child: Text(
-                      "Register",
-                      style: AppTheme.whiteText.button,
+                ),
+                heightSpace(5),
+                TextField(
+                  onChanged: (_) => setState(() => {}),
+                  controller: _usernameController,
+                  decoration: InputDecoration(
+                    hintText: "Username",
+                    hintStyle: AppTheme.greyText.subtitle1,
+                    errorText: _usernameErrorText,
+                    errorStyle: TextStyle(
+                      color: Colors.red,
+                      fontFamily: AppTheme.primaryFontFamily,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.person,
+                      color: Colors.grey,
+                      size: 5 * Responsive().imageConfig,
                     ),
                   ),
                 ),
-              ),
-              heightSpace(4),
-              Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  Text("have an account ?", style: AppTheme.greyText.subtitle1),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.of(context).pushNamed(loginViewRoute);
-                    },
-                    child: Text(
-                      "Login",
-                      style: AppTheme.blueText.subtitle1,
+                heightSpace(3),
+                TextField(
+                  onChanged: (_) => setState(() => {}),
+                  controller: _emailController,
+                  decoration: InputDecoration(
+                    hintText: "Email",
+                    hintStyle: AppTheme.greyText.subtitle1,
+                    errorText: _emailErrorText,
+                    errorStyle: TextStyle(
+                      color: Colors.red,
+                      fontFamily: AppTheme.primaryFontFamily,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.email,
+                      color: Colors.grey,
+                      size: 5 * Responsive().imageConfig,
                     ),
                   ),
-                ],
-              ),
-            ],
+                ),
+                heightSpace(3),
+                TextField(
+                  onChanged: (_) => setState(() => {}),
+                  controller: _passwordController,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: "Password",
+                    hintStyle: AppTheme.greyText.subtitle1,
+                    errorText: _passwordErrorText,
+                    errorStyle: TextStyle(
+                      color: Colors.red,
+                      fontFamily: AppTheme.primaryFontFamily,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.password,
+                      color: Colors.grey,
+                      size: 5 * Responsive().imageConfig,
+                    ),
+                  ),
+                ),
+                heightSpace(4),
+                GestureDetector(
+                  onTap: () async {
+                    if (_passwordErrorText == null &&
+                        _emailErrorText == null &&
+                        _usernameErrorText == null &&
+                        _emailController.text.isNotEmpty &&
+                        _passwordController.text.isNotEmpty &&
+                        _usernameController.text.isNotEmpty) {
+                      try {
+                        int otp = await AuthService.sendOTP(
+                          email: _emailController.text,
+                        );
+                        if (!mounted) return;
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ConfrimEmailView(
+                              firstOtp: otp,
+                              username: _usernameController.text,
+                              email: _emailController.text,
+                              password: _passwordController.text,
+                            ),
+                          ),
+                        );
+                      } on UserAlredyExistAuthException {
+                        log("user already exist");
+                      }
+                    }
+                  },
+                  child: Container(
+                    width: 90 * Responsive().widthConfig,
+                    height: 7 * Responsive().heightConfig,
+                    decoration: BoxDecoration(
+                      color: (_passwordErrorText == null &&
+                              _emailErrorText == null &&
+                              _usernameErrorText == null &&
+                              _emailController.text.isNotEmpty &&
+                              _passwordController.text.isNotEmpty &&
+                              _usernameController.text.isNotEmpty)
+                          ? AppTheme.primaryLightColor
+                          : Colors.grey,
+                      borderRadius: BorderRadius.circular(
+                        2 * Responsive().imageConfig,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "Register",
+                        style: AppTheme.whiteText.button,
+                      ),
+                    ),
+                  ),
+                ),
+                heightSpace(4),
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    Text("have an account ?", style: AppTheme.greyText.subtitle1),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.of(context).pushNamed(loginViewRoute);
+                      },
+                      child: Text(
+                        "Login",
+                        style: AppTheme.blueText.subtitle1,
+                      ),
+                    ),
+                  ],
+                ),
+              ],
+            ),
           ),
         ),
       ),

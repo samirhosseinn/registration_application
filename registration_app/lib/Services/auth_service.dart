@@ -75,4 +75,13 @@ class AuthService {
 
     await post(url, body: changePasswordBody);
   }
+
+  static Future<void> addName({
+    required String email,
+    required String name,
+  }) async {
+    addNameBody["email"] = email;
+    addNameBody["name"] = name;
+    await post(url, body: addNameBody);
+  }
 }

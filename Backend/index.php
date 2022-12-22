@@ -43,5 +43,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["user"] == $user && $_POST["p
             $result = $Udb->updateUser(email: $_POST["email"], attr: "password", value: $_POST["password"]);
             echo json_encode($result);
             break;
+        case "addName":
+            $result = $Udb->updateUser(email: $_POST["email"], attr: "name", value: $_POST["name"]);
+            echo json_encode($result);
+            break;
     }
 }

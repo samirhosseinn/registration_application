@@ -63,97 +63,99 @@ class _ConfrimEmailViewState extends State<ConfrimEmailView> {
           horizontal: 5 * Responsive().widthConfig,
         ),
         child: Center(
-          child: Column(
-            children: [
-              Image.asset(
-                Images.confrimEmail,
-                width: 90 * Responsive().widthConfig,
-                height: 40 * Responsive().heightConfig,
-              ),
-              heightSpace(5),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Confirm your email",
-                  style: AppTheme.darkPrimaryText.button,
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset(
+                  Images.confrimEmail,
+                  width: 90 * Responsive().widthConfig,
+                  height: 40 * Responsive().heightConfig,
                 ),
-              ),
-              heightSpace(7),
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                textDirection: TextDirection.ltr,
-                children: [
-                  otpTextField(context, _pin1, false),
-                  otpTextField(context, _pin2, false),
-                  otpTextField(context, _pin3, false),
-                  otpTextField(context, _pin4, true),
-                ],
-              ),
-              heightSpace(15),
-              GestureDetector(
-                onTap: () async {
-                  int enteredOTP = int.parse(
-                      _pin1.text + _pin2.text + _pin3.text + _pin4.text);
-
-                  if (enteredOTP == otp) {
-                    if (widget.isUserRegistered) {
-                      Navigator.of(context).push(MaterialPageRoute(
-                        builder: (context) =>
-                            ChangePasswordView(email: widget.email),
-                      ));
+                heightSpace(5),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Confirm your email",
+                    style: AppTheme.darkPrimaryText.button,
+                  ),
+                ),
+                heightSpace(7),
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  textDirection: TextDirection.ltr,
+                  children: [
+                    otpTextField(context, _pin1, false),
+                    otpTextField(context, _pin2, false),
+                    otpTextField(context, _pin3, false),
+                    otpTextField(context, _pin4, true),
+                  ],
+                ),
+                heightSpace(15),
+                GestureDetector(
+                  onTap: () async {
+                    int enteredOTP = int.parse(
+                        _pin1.text + _pin2.text + _pin3.text + _pin4.text);
+          
+                    if (enteredOTP == otp) {
+                      if (widget.isUserRegistered) {
+                        Navigator.of(context).push(MaterialPageRoute(
+                          builder: (context) =>
+                              ChangePasswordView(email: widget.email),
+                        ));
+                      } else {
+                        await AuthService.register(
+                          email: widget.email,
+                          username: widget.username,
+                          password: widget.password,
+                        );
+                        log("registred");
+                        if (!mounted) return;
+                        Navigator.of(context).pushNamed(loginViewRoute);
+                      }
                     } else {
-                      await AuthService.register(
-                        email: widget.email,
-                        username: widget.username,
-                        password: widget.password,
-                      );
-                      log("registred");
-                      if (!mounted) return;
-                      Navigator.of(context).pushNamed(loginViewRoute);
+                      log("wronge otp");
                     }
-                  } else {
-                    log("wronge otp");
-                  }
-                },
-                child: Container(
-                  width: 80 * Responsive().widthConfig,
-                  height: 8 * Responsive().heightConfig,
-                  decoration: BoxDecoration(
-                    color: AppTheme.primaryLightColor,
-                    borderRadius: BorderRadius.circular(
-                      5 * Responsive().imageConfig,
+                  },
+                  child: Container(
+                    width: 80 * Responsive().widthConfig,
+                    height: 8 * Responsive().heightConfig,
+                    decoration: BoxDecoration(
+                      color: AppTheme.primaryLightColor,
+                      borderRadius: BorderRadius.circular(
+                        5 * Responsive().imageConfig,
+                      ),
                     ),
-                  ),
-                  child: Center(
-                    child: Text(
-                      "confirm",
-                      style: AppTheme.whiteText.button,
+                    child: Center(
+                      child: Text(
+                        "confirm",
+                        style: AppTheme.whiteText.button,
+                      ),
                     ),
                   ),
                 ),
-              ),
-              heightSpace(5),
-              GestureDetector(
-                onTap: () async {
-                  if (widget.isUserRegistered) {
-                    int newOtp = await AuthService.sendForgotPassword(
-                        email: widget.email);
-                    setState(() {
-                      otp = newOtp;
-                    });
-                  } else {
-                    int newOtp = await AuthService.sendOTP(email: widget.email);
-                    setState(() {
-                      otp = newOtp;
-                    });
-                  }
-                },
-                child: Text(
-                  "resend verification email",
-                  style: AppTheme.lightPrimaryText.button,
-                ),
-              )
-            ],
+                heightSpace(5),
+                GestureDetector(
+                  onTap: () async {
+                    if (widget.isUserRegistered) {
+                      int newOtp = await AuthService.sendForgotPassword(
+                          email: widget.email);
+                      setState(() {
+                        otp = newOtp;
+                      });
+                    } else {
+                      int newOtp = await AuthService.sendOTP(email: widget.email);
+                      setState(() {
+                        otp = newOtp;
+                      });
+                    }
+                  },
+                  child: Text(
+                    "resend verification email",
+                    style: AppTheme.lightPrimaryText.button,
+                  ),
+                )
+              ],
+            ),
           ),
         ),
       ),

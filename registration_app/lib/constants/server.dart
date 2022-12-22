@@ -49,3 +49,11 @@ final Map changePasswordBody = {
   "email": null,
   "password": null,
 };
+
+final Map addNameBody = {
+  "user": user,
+  "pass": pass,
+  "mode": "addName",
+  "email": null,
+  "name": null,
+};

@@ -37,83 +37,85 @@ class _ForgotPasswordViewState extends State<ForgotPasswordView> {
           horizontal: 5 * Responsive().widthConfig,
         ),
         child: Center(
-          child: Column(
-            children: [
-              Image.asset(
-                Images.forgotPassword,
-                width: 90 * Responsive().widthConfig,
-                height: 40 * Responsive().heightConfig,
-              ),
-              heightSpace(5),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Enter your email to get verification code",
-                  style: AppTheme.darkPrimaryText.headline6,
-                ),
-              ),
-              heightSpace(7),
-              TextField(
-                onChanged: (_) => setState(() => {}),
-                controller: _email,
-                decoration: InputDecoration(
-                  hintText: "email",
-                  hintStyle: AppTheme.greyText.subtitle1,
-                  errorText: _emailErrorText,
-                  errorStyle: TextStyle(
-                    color: Colors.red,
-                    fontFamily: AppTheme.primaryFontFamily,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.email,
-                    color: Colors.grey,
-                    size: 5 * Responsive().imageConfig,
-                  ),
-                ),
-              ),
-              heightSpace(10),
-              GestureDetector(
-                onTap: () async {
-                  if (_email.text.isNotEmpty && _emailErrorText == null) {
-                    if (await AuthService.checkUserExist(email: _email.text)) {
-                      int otp = await AuthService.sendForgotPassword(email: _email.text);
-                      if (!mounted) return;
-                      Navigator.of(context).push(
-                        MaterialPageRoute(
-                          builder: (context) => ConfrimEmailView(
-                            firstOtp: otp,
-                            email: _email.text,
-                            username: "",
-                            password: "",
-                            isUserRegistered: true,
-                          ),
-                        ),
-                      );
-                    } else {
-                      log("user not exist");
-                    }
-                  }
-                },
-                child: Container(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset(
+                  Images.forgotPassword,
                   width: 90 * Responsive().widthConfig,
-                  height: 7 * Responsive().heightConfig,
-                  decoration: BoxDecoration(
-                    color: (_email.text.isNotEmpty && _emailErrorText == null)
-                        ? AppTheme.primaryLightColor
-                        : Colors.grey,
-                    borderRadius: BorderRadius.circular(
-                      2 * Responsive().imageConfig,
-                    ),
+                  height: 40 * Responsive().heightConfig,
+                ),
+                heightSpace(5),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Enter your email to get verification code",
+                    style: AppTheme.darkPrimaryText.headline6,
                   ),
-                  child: Center(
-                    child: Text(
-                      "send email",
-                      style: AppTheme.whiteText.button,
+                ),
+                heightSpace(7),
+                TextField(
+                  onChanged: (_) => setState(() => {}),
+                  controller: _email,
+                  decoration: InputDecoration(
+                    hintText: "email",
+                    hintStyle: AppTheme.greyText.subtitle1,
+                    errorText: _emailErrorText,
+                    errorStyle: TextStyle(
+                      color: Colors.red,
+                      fontFamily: AppTheme.primaryFontFamily,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.email,
+                      color: Colors.grey,
+                      size: 5 * Responsive().imageConfig,
                     ),
                   ),
                 ),
-              ),
-            ],
+                heightSpace(10),
+                GestureDetector(
+                  onTap: () async {
+                    if (_email.text.isNotEmpty && _emailErrorText == null) {
+                      if (await AuthService.checkUserExist(email: _email.text)) {
+                        int otp = await AuthService.sendForgotPassword(email: _email.text);
+                        if (!mounted) return;
+                        Navigator.of(context).push(
+                          MaterialPageRoute(
+                            builder: (context) => ConfrimEmailView(
+                              firstOtp: otp,
+                              email: _email.text,
+                              username: "",
+                              password: "",
+                              isUserRegistered: true,
+                            ),
+                          ),
+                        );
+                      } else {
+                        log("user not exist");
+                      }
+                    }
+                  },
+                  child: Container(
+                    width: 90 * Responsive().widthConfig,
+                    height: 7 * Responsive().heightConfig,
+                    decoration: BoxDecoration(
+                      color: (_email.text.isNotEmpty && _emailErrorText == null)
+                          ? AppTheme.primaryLightColor
+                          : Colors.grey,
+                      borderRadius: BorderRadius.circular(
+                        2 * Responsive().imageConfig,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "send email",
+                        style: AppTheme.whiteText.button,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

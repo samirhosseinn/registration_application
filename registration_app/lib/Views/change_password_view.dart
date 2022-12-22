@@ -44,99 +44,101 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
           horizontal: 5 * Responsive().widthConfig,
         ),
         child: Center(
-          child: Column(
-            children: [
-              Image.asset(
-                Images.forgotPassword,
-                width: 90 * Responsive().widthConfig,
-                height: 40 * Responsive().heightConfig,
-              ),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: Text(
-                  "Enter your new password",
-                  style: AppTheme.darkPrimaryText.button,
-                ),
-              ),
-              heightSpace(5),
-              TextField(
-                onChanged: (_) => setState(() => {}),
-                controller: _password,
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: "password",
-                  hintStyle: AppTheme.greyText.subtitle1,
-                  errorText: _passwordErrorText,
-                  errorStyle: TextStyle(
-                    color: Colors.red,
-                    fontFamily: AppTheme.primaryFontFamily,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.password,
-                    color: Colors.grey,
-                    size: 5 * Responsive().imageConfig,
-                  ),
-                ),
-              ),
-              heightSpace(5),
-              TextField(
-                onChanged: (_) => setState(() => {}),
-                controller: _rePassword,
-                obscureText: true,
-                decoration: InputDecoration(
-                  hintText: "re-enter your password",
-                  hintStyle: AppTheme.greyText.subtitle1,
-                  errorText: _rePasswordErrorText,
-                  errorStyle: TextStyle(
-                    color: Colors.red,
-                    fontFamily: AppTheme.primaryFontFamily,
-                  ),
-                  prefixIcon: Icon(
-                    Icons.password,
-                    color: Colors.grey,
-                    size: 5 * Responsive().imageConfig,
-                  ),
-                ),
-              ),
-              heightSpace(10),
-              GestureDetector(
-                onTap: () async {
-                  if (_password.text.isNotEmpty &&
-                      _rePassword.text.isNotEmpty &&
-                      _passwordErrorText == null &&
-                      _rePasswordErrorText == null) {
-                    await AuthService.changePassword(
-                      email: widget.email,
-                      password: _password.text,
-                    );
-
-                    if (!mounted) return;
-                    Navigator.of(context).pushNamed(loginViewRoute);
-                  }
-                },
-                child: Container(
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                Image.asset(
+                  Images.forgotPassword,
                   width: 90 * Responsive().widthConfig,
-                  height: 7 * Responsive().heightConfig,
-                  decoration: BoxDecoration(
-                    color: (_password.text.isNotEmpty &&
-                            _rePassword.text.isNotEmpty &&
-                            _passwordErrorText == null &&
-                            _rePasswordErrorText == null)
-                        ? AppTheme.primaryLightColor
-                        : Colors.grey,
-                    borderRadius: BorderRadius.circular(
-                      5 * Responsive().imageConfig,
-                    ),
+                  height: 40 * Responsive().heightConfig,
+                ),
+                Align(
+                  alignment: Alignment.centerLeft,
+                  child: Text(
+                    "Enter your new password",
+                    style: AppTheme.darkPrimaryText.button,
                   ),
-                  child: Center(
-                    child: Text(
-                      "change password",
-                      style: AppTheme.whiteText.button,
+                ),
+                heightSpace(5),
+                TextField(
+                  onChanged: (_) => setState(() => {}),
+                  controller: _password,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: "password",
+                    hintStyle: AppTheme.greyText.subtitle1,
+                    errorText: _passwordErrorText,
+                    errorStyle: TextStyle(
+                      color: Colors.red,
+                      fontFamily: AppTheme.primaryFontFamily,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.password,
+                      color: Colors.grey,
+                      size: 5 * Responsive().imageConfig,
                     ),
                   ),
                 ),
-              ),
-            ],
+                heightSpace(5),
+                TextField(
+                  onChanged: (_) => setState(() => {}),
+                  controller: _rePassword,
+                  obscureText: true,
+                  decoration: InputDecoration(
+                    hintText: "re-enter your password",
+                    hintStyle: AppTheme.greyText.subtitle1,
+                    errorText: _rePasswordErrorText,
+                    errorStyle: TextStyle(
+                      color: Colors.red,
+                      fontFamily: AppTheme.primaryFontFamily,
+                    ),
+                    prefixIcon: Icon(
+                      Icons.password,
+                      color: Colors.grey,
+                      size: 5 * Responsive().imageConfig,
+                    ),
+                  ),
+                ),
+                heightSpace(10),
+                GestureDetector(
+                  onTap: () async {
+                    if (_password.text.isNotEmpty &&
+                        _rePassword.text.isNotEmpty &&
+                        _passwordErrorText == null &&
+                        _rePasswordErrorText == null) {
+                      await AuthService.changePassword(
+                        email: widget.email,
+                        password: _password.text,
+                      );
+          
+                      if (!mounted) return;
+                      Navigator.of(context).pushNamed(loginViewRoute);
+                    }
+                  },
+                  child: Container(
+                    width: 90 * Responsive().widthConfig,
+                    height: 7 * Responsive().heightConfig,
+                    decoration: BoxDecoration(
+                      color: (_password.text.isNotEmpty &&
+                              _rePassword.text.isNotEmpty &&
+                              _passwordErrorText == null &&
+                              _rePasswordErrorText == null)
+                          ? AppTheme.primaryLightColor
+                          : Colors.grey,
+                      borderRadius: BorderRadius.circular(
+                        5 * Responsive().imageConfig,
+                      ),
+                    ),
+                    child: Center(
+                      child: Text(
+                        "change password",
+                        style: AppTheme.whiteText.button,
+                      ),
+                    ),
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

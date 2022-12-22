@@ -132,6 +132,11 @@ class UserDatabaseService extends Database
                     $stmt->execute([$value, $email]);
                     return true;
                     break;
+                case "name":
+                    $stmt = $this->connect()->prepare($query);
+                    $stmt->execute([$value, $email]);
+                    return true;
+                    break;
                 default:
                     return 3;
             }

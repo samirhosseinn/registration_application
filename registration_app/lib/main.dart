@@ -8,7 +8,7 @@ import 'package:registration_app/constants/routes.dart';
 
 void main() {
   runApp(LayoutBuilder(
-    builder: ((context, constraints) {
+    builder: (context, constraints) {
       Responsive().init(constraints: constraints);
       return MaterialApp(
         debugShowCheckedModeBanner: false,
@@ -20,7 +20,7 @@ void main() {
           forgotPasswordViewRoute: (context) => const ForgotPasswordView(),
         },
       );
-    }),
+    },
   ));
 }
 

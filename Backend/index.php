@@ -25,5 +25,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["user"] == $user && $_POST["p
         case "update":
 
             break;
+        case "sendOtp":
+            Email::sendOTP(email: $_POST["email"], otp: $_POST["otp"]);
+            break;
     }
 }

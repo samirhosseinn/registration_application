@@ -151,3 +151,18 @@ class UserDatabaseService extends Database
         }
     }
 }
+
+
+class Email
+{
+    public static function sendOTP($email, $otp)
+    {
+        $from = "amirpythonproject@gmail.com";
+        $to = $email;
+        $subject = "OTP code";
+        $message = "Welcome to application\nhere is your otp code:\n" . $otp;
+        $headers = ["From: $from"];
+
+        mail($to, $subject, $message, implode('\r\n', $headers));
+    }
+}

@@ -2,14 +2,26 @@ import 'dart:developer';
 
 import 'package:flutter/material.dart';
 import 'package:registration_app/Responsive/responsive.dart';
+import 'package:registration_app/Services/auth_service.dart';
 
 import 'package:registration_app/Widgets/space.dart';
 import 'package:registration_app/Widgets/text_filed.dart';
+import 'package:registration_app/constants/routes.dart';
 import 'package:registration_app/style/images.dart';
 import 'package:registration_app/style/style.dart';
 
 class ConfrimEmailView extends StatefulWidget {
-  const ConfrimEmailView({Key? key}) : super(key: key);
+  final int firstOtp;
+  final String username;
+  final String email;
+  final String password;
+  const ConfrimEmailView({
+    Key? key,
+    required this.firstOtp,
+    required this.email,
+    required this.username,
+    required this.password,
+  }) : super(key: key);
 
   @override
   State<ConfrimEmailView> createState() => _ConfrimEmailViewState();
@@ -21,12 +33,15 @@ class _ConfrimEmailViewState extends State<ConfrimEmailView> {
   late final TextEditingController _pin3;
   late final TextEditingController _pin4;
 
+  late int otp;
+
   @override
   void initState() {
     _pin1 = TextEditingController();
     _pin2 = TextEditingController();
     _pin3 = TextEditingController();
     _pin4 = TextEditingController();
+    otp = widget.firstOtp;
     super.initState();
   }
 
@@ -75,8 +90,22 @@ class _ConfrimEmailViewState extends State<ConfrimEmailView> {
               ),
               heightSpace(15),
               GestureDetector(
-                onTap: () {
-                  log("confirm email");
+                onTap: () async {
+                  int enteredOTP = int.parse(
+                      _pin1.text + _pin2.text + _pin3.text + _pin4.text);
+
+                  if (enteredOTP == otp) {
+                    await AuthService.register(
+                      email: widget.email,
+                      username: widget.username,
+                      password: widget.password,
+                    );
+                    log("registred");
+                    if (!mounted) return;
+                    Navigator.of(context).pushNamed(loginViewRoute);
+                  } else {
+                    log("wronge otp");
+                  }
                 },
                 child: Container(
                   width: 80 * Responsive().widthConfig,
@@ -97,8 +126,11 @@ class _ConfrimEmailViewState extends State<ConfrimEmailView> {
               ),
               heightSpace(5),
               GestureDetector(
-                onTap: () {
-                  log("resend verification email");
+                onTap: () async {
+                  int newOtp = await AuthService.sendOTP(email: widget.email);
+                  setState(() {
+                    otp = newOtp;
+                  });
                 },
                 child: Text(
                   "resend verification email",

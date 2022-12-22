@@ -4,6 +4,7 @@ import 'package:registration_app/Exceptions/exceptions.dart';
 import 'package:registration_app/Responsive/responsive.dart';
 
 import 'package:registration_app/Services/auth_service.dart';
+import 'package:registration_app/Views/confrim_email_view.dart';
 import 'package:registration_app/Widgets/space.dart';
 import 'package:registration_app/constants/routes.dart';
 import 'package:registration_app/style/images.dart';
@@ -138,7 +139,17 @@ class _RegisterViewState extends State<RegisterView> {
                       int otp = await AuthService.sendOTP(
                         email: _emailController.text,
                       );
-                      log(otp.toString());
+                      if (!mounted) return;
+                      Navigator.of(context).push(
+                        MaterialPageRoute(
+                          builder: (context) => ConfrimEmailView(
+                            firstOtp: otp,
+                            username: _usernameController.text,
+                            email: _emailController.text,
+                            password: _passwordController.text,
+                          ),
+                        ),
+                      );
                     } on UserAlredyExistAuthException {
                       log("user already exist");
                     }

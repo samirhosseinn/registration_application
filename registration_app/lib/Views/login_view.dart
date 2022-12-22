@@ -62,7 +62,7 @@ class _LoginViewState extends State<LoginView> {
                 onChanged: (_) => setState(() => {}),
                 controller: _usernameController,
                 decoration: InputDecoration(
-                  hintText: "Username",
+                  hintText: "username or email",
                   hintStyle: AppTheme.greyText.subtitle1,
                   prefixIcon: Icon(
                     Icons.person,
@@ -77,7 +77,7 @@ class _LoginViewState extends State<LoginView> {
                 controller: _passwordController,
                 obscureText: true,
                 decoration: InputDecoration(
-                  hintText: "Password",
+                  hintText: "password",
                   hintStyle: AppTheme.greyText.subtitle1,
                   prefixIcon: Icon(
                     Icons.password,

@@ -6,15 +6,23 @@ final Map loginBody = {
   "user": user,
   "pass": pass,
   "mode": "login",
-  "usernameOrEmail": "",
-  "password": "",
+  "usernameOrEmail": null,
+  "password": null,
 };
 
 final Map registerBody = {
   "user": user,
   "pass": pass,
   "mode": "register",
-  "email": "",
-  "username": "",
-  "password": "",
+  "email": null,
+  "username": null,
+  "password": null,
+};
+
+final Map sendOTPBody = {
+  "user": user,
+  "pass": pass,
+  "mode": "sendOtp",
+  "email": null,
+  "otp": null,
 };

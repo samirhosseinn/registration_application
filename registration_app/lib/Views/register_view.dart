@@ -127,14 +127,18 @@ class _RegisterViewState extends State<RegisterView> {
                       _passwordController.text.isNotEmpty &&
                       _usernameController.text.isNotEmpty) {
                     try {
-                      await AuthService.register(
+                      // await AuthService.register(
+                      //   email: _emailController.text,
+                      //   username: _usernameController.text,
+                      //   password: _passwordController.text,
+                      // );
+                      // log("registred");
+                      // if (!mounted) return;
+                      // Navigator.of(context).pushNamed(loginViewRoute);
+                      int otp = await AuthService.sendOTP(
                         email: _emailController.text,
-                        username: _usernameController.text,
-                        password: _passwordController.text,
                       );
-                      log("registred");
-                      if (!mounted) return;
-                      Navigator.of(context).pushNamed(loginViewRoute);
+                      log(otp.toString());
                     } on UserAlredyExistAuthException {
                       log("user already exist");
                     }

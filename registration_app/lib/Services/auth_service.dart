@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'dart:math';
 import 'package:http/http.dart';
 import 'package:registration_app/Exceptions/exceptions.dart';
 import 'package:registration_app/constants/server.dart';
@@ -32,5 +33,15 @@ class AuthService {
     if (statusCode != 0) {
       throw UserAlredyExistAuthException();
     }
+  }
+
+  static Future<int> sendOTP({required String email}) async {
+    int otp = 1000 + Random().nextInt(9999 - 1000);
+
+    sendOTPBody["email"] = email;
+    sendOTPBody["otp"] = otp.toString();
+
+    await post(url, body: sendOTPBody);
+    return otp;
   }
 }

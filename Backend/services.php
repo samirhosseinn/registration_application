@@ -39,6 +39,7 @@ class UserDatabaseService extends Database
                 "username" => $user["username"],
                 "email" => $user["email"],
                 "name" => $user["name"],
+                "image_url" => $user["image_url"],
             ];
         } else {
             return [];
@@ -56,7 +57,7 @@ class UserDatabaseService extends Database
                 "username" => $user["username"],
                 "email" => $user["email"],
                 "name" => $user["name"],
-
+                "image_url" => $user["image_url"],
             ];
         } else {
             return [];
@@ -81,7 +82,7 @@ class UserDatabaseService extends Database
                 "username" => $user["username"],
                 "email" => $user["email"],
                 "name" => $user["name"],
-
+                "image_url" => $user["image_url"],
             ];
         } else {
             return [];
@@ -100,7 +101,7 @@ class UserDatabaseService extends Database
                 "username" => $user["username"],
                 "email" => $user["email"],
                 "name" => $user["name"],
-
+                "image_url" => $user["image_url"],
             ];
         } else {
             return [];
@@ -133,6 +134,11 @@ class UserDatabaseService extends Database
                     return true;
                     break;
                 case "name":
+                    $stmt = $this->connect()->prepare($query);
+                    $stmt->execute([$value, $email]);
+                    return true;
+                    break;
+                case "image_url":
                     $stmt = $this->connect()->prepare($query);
                     $stmt->execute([$value, $email]);
                     return true;

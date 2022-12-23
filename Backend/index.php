@@ -47,5 +47,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["user"] == $user && $_POST["p
             $result = $Udb->updateUser(email: $_POST["email"], attr: "name", value: $_POST["name"]);
             echo json_encode($result);
             break;
+        case "addProfileImage":
+            $result = $Udb->updateUser(email: $_POST["email"], attr: "image_url", value: $_POST["image_url"]);
+            echo json_encode($result);
+            break;
     }
 }

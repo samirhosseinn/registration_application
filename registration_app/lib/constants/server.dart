@@ -57,3 +57,16 @@ final Map addNameBody = {
   "email": null,
   "name": null,
 };
+
+final Map addProfileImageBody = {
+  "user": user,
+  "pass": pass,
+  "mode": "addProfileImage",
+  "email": null,
+  "image_url": null,
+};
+
+final Map uploadProfileImageBody = {
+  "key": "697ee75619dcbfcf25ec6004fec17110",
+  "image": null,
+};

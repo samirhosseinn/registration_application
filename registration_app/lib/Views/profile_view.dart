@@ -1,4 +1,3 @@
-import 'dart:io';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:image_picker/image_picker.dart';
@@ -68,29 +67,45 @@ class _ProfileViewState extends State<ProfileView> {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       GestureDetector(
-                        onTap: (){
+                        onTap: () {
                           pickMedia();
                         },
-                        child: Container(
-                          width: 32 * Responsive().widthConfig,
-                          height: 15 * Responsive().heightConfig,
-                          decoration: BoxDecoration(
-                            border: Border.all(
-                              color: Colors.white,
-                              width: 0.4 * Responsive().imageConfig,
-                            ),
-                            borderRadius: BorderRadius.circular(
-                              100 * Responsive().imageConfig,
-                            ),
-                          ),
-                          child: imagePath == null
-                              ? Icon(
+                        child: Profile().imageUrl != null
+                            ? Container(
+                                width: 32 * Responsive().widthConfig,
+                                height: 15 * Responsive().heightConfig,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.white,
+                                    width: 0.4 * Responsive().imageConfig,
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                    100 * Responsive().imageConfig,
+                                  ),
+                                  image: DecorationImage(
+                                    fit: BoxFit.fill,
+                                    image: NetworkImage(Profile().imageUrl!),
+                                  ),
+                                ),
+                              )
+                            : Container(
+                                width: 32 * Responsive().widthConfig,
+                                height: 15 * Responsive().heightConfig,
+                                decoration: BoxDecoration(
+                                  border: Border.all(
+                                    color: Colors.white,
+                                    width: 0.4 * Responsive().imageConfig,
+                                  ),
+                                  borderRadius: BorderRadius.circular(
+                                    100 * Responsive().imageConfig,
+                                  ),
+                                ),
+                                child: Icon(
                                   Icons.person_rounded,
                                   size: 20 * Responsive().imageConfig,
                                   color: Colors.white,
-                                )
-                              : Image.file(File(imagePath!)),
-                        ),
+                                ),
+                              ),
                       ),
                       heightSpace(2),
                       isTextFieldShowed
@@ -187,6 +202,7 @@ class _ProfileViewState extends State<ProfileView> {
                   Profile().name = null;
                   Profile().username = "";
                   Profile().email = "";
+                  Profile().imageUrl = null;
                   Navigator.of(context).pushNamedAndRemoveUntil(
                     loginViewRoute,
                     (route) => false,
@@ -210,6 +226,9 @@ class _ProfileViewState extends State<ProfileView> {
 
     if (file != null) {
       imagePath = file.path;
+      await AuthService.uploadProfileImage(
+        filePath: imagePath!,
+      );
       setState(() {});
     }
   }

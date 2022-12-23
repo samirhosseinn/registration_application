@@ -1,7 +1,9 @@
 import 'dart:convert';
+import 'dart:io';
 import 'dart:math';
 import 'package:http/http.dart';
 import 'package:registration_app/Exceptions/exceptions.dart';
+import 'package:registration_app/Profile/profile.dart';
 import 'package:registration_app/constants/server.dart';
 
 class AuthService {
@@ -83,5 +85,29 @@ class AuthService {
     addNameBody["email"] = email;
     addNameBody["name"] = name;
     await post(url, body: addNameBody);
+  }
+
+  static Future<void> uploadProfileImage({
+    required String filePath,
+  }) async {
+    //convert image to base64
+    final bytes = File(filePath).readAsBytesSync();
+    String base64 = base64Encode(bytes);
+
+    // send post request ro imgbb
+    uploadProfileImageBody["image"] = base64;
+    var res = await post(
+      Uri.parse("https://api.imgbb.com/1/upload"),
+      body: uploadProfileImageBody,
+    );
+    Map data = json.decode(utf8.decode(res.bodyBytes));
+    
+    // add profile image link to database
+    addProfileImageBody["email"] = Profile().email;
+    addProfileImageBody["image_url"] = data["data"]["url"];
+    await post(url, body: addProfileImageBody);
+
+    // update cache
+    Profile().imageUrl = data["data"]["url"];
   }
 }

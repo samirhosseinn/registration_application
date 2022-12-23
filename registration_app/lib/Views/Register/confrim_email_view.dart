@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:registration_app/Responsive/responsive.dart';
 import 'package:registration_app/Services/auth_service.dart';
-import 'package:registration_app/Views/change_password_view.dart';
+import 'package:registration_app/Views/ChangePassword/change_password_view.dart';
 import 'package:registration_app/Widgets/space.dart';
 import 'package:registration_app/Widgets/text_filed.dart';
 import 'package:registration_app/constants/routes.dart';

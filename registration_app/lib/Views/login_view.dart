@@ -125,6 +125,9 @@ class _LoginViewState extends State<LoginView> {
                           Profile().name = userData["name"].isNotEmpty
                               ? userData["name"]
                               : null;
+                          Profile().imageUrl = userData["image_url"].isNotEmpty
+                              ? userData["image_url"]
+                              : null;
                           if (!mounted) return;
                           Navigator.of(context).pushNamedAndRemoveUntil(
                             profileViewRoute,

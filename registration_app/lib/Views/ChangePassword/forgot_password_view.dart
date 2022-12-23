@@ -2,7 +2,7 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:registration_app/Responsive/responsive.dart';
 import 'package:registration_app/Services/auth_service.dart';
-import 'package:registration_app/Views/confrim_email_view.dart';
+import 'package:registration_app/Views/Register/confrim_email_view.dart';
 import 'package:registration_app/Widgets/space.dart';
 import 'package:registration_app/style/images.dart';
 import 'package:registration_app/style/style.dart';

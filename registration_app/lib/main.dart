@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:registration_app/Responsive/responsive.dart';
-import 'package:registration_app/Views/forgot_password_view.dart';
+import 'package:registration_app/Views/ChangePassword/forgot_password_view.dart';
 import 'package:registration_app/Views/login_view.dart';
 import 'package:registration_app/Views/profile_view.dart';
-import 'package:registration_app/Views/register_view.dart';
+import 'package:registration_app/Views/Register/register_view.dart';
 import 'package:registration_app/constants/routes.dart';
 
 void main() {

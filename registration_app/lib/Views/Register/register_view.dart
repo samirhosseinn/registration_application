@@ -1,12 +1,12 @@
 import 'dart:developer';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:registration_app/Bloc/auth_bloc.dart';
+import 'package:registration_app/Bloc/auth_event.dart';
+import 'package:registration_app/Bloc/auth_state.dart';
 import 'package:registration_app/Exceptions/exceptions.dart';
 import 'package:registration_app/Responsive/responsive.dart';
-
-import 'package:registration_app/Services/auth_service.dart';
-import 'package:registration_app/Views/Register/confrim_email_view.dart';
 import 'package:registration_app/Widgets/space.dart';
-import 'package:registration_app/constants/routes.dart';
 import 'package:registration_app/style/images.dart';
 import 'package:registration_app/style/style.dart';
 
@@ -40,155 +40,156 @@ class _RegisterViewState extends State<RegisterView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 5 * Responsive().widthConfig,
-        ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Image.asset(
-                  Images.register,
-                  width: 90 * Responsive().widthConfig,
-                  height: 40 * Responsive().heightConfig,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Register",
-                    style: AppTheme.darkPrimaryText.headline5,
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is AuthStateRegister) {
+          if (state.exception is UserAlreadyExistException) {
+            log("user alredy esixt");
+          } else if (state.exception is InternetConnectionException) {
+            log("check your internet");
+          } else if (state.exception is GenericException) {
+            log('please try again later');
+          }
+        }
+      },
+      child: Scaffold(
+        body: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 5 * Responsive().widthConfig,
+          ),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Image.asset(
+                    Images.register,
+                    width: 90 * Responsive().widthConfig,
+                    height: 40 * Responsive().heightConfig,
                   ),
-                ),
-                heightSpace(5),
-                TextField(
-                  onChanged: (_) => setState(() => {}),
-                  controller: _usernameController,
-                  decoration: InputDecoration(
-                    hintText: "Username",
-                    hintStyle: AppTheme.greyText.subtitle1,
-                    errorText: _usernameErrorText,
-                    errorStyle: TextStyle(
-                      color: Colors.red,
-                      fontFamily: AppTheme.primaryFontFamily,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.person,
-                      color: Colors.grey,
-                      size: 5 * Responsive().imageConfig,
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Register",
+                      style: AppTheme.darkPrimaryText.headline5,
                     ),
                   ),
-                ),
-                heightSpace(3),
-                TextField(
-                  onChanged: (_) => setState(() => {}),
-                  controller: _emailController,
-                  decoration: InputDecoration(
-                    hintText: "Email",
-                    hintStyle: AppTheme.greyText.subtitle1,
-                    errorText: _emailErrorText,
-                    errorStyle: TextStyle(
-                      color: Colors.red,
-                      fontFamily: AppTheme.primaryFontFamily,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.email,
-                      color: Colors.grey,
-                      size: 5 * Responsive().imageConfig,
-                    ),
-                  ),
-                ),
-                heightSpace(3),
-                TextField(
-                  onChanged: (_) => setState(() => {}),
-                  controller: _passwordController,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: "Password",
-                    hintStyle: AppTheme.greyText.subtitle1,
-                    errorText: _passwordErrorText,
-                    errorStyle: TextStyle(
-                      color: Colors.red,
-                      fontFamily: AppTheme.primaryFontFamily,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.password,
-                      color: Colors.grey,
-                      size: 5 * Responsive().imageConfig,
+                  heightSpace(5),
+                  TextField(
+                    onChanged: (_) => setState(() => {}),
+                    controller: _usernameController,
+                    decoration: InputDecoration(
+                      hintText: "Username",
+                      hintStyle: AppTheme.greyText.subtitle1,
+                      errorText: _usernameErrorText,
+                      errorStyle: TextStyle(
+                        color: Colors.red,
+                        fontFamily: AppTheme.primaryFontFamily,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.person,
+                        color: Colors.grey,
+                        size: 5 * Responsive().imageConfig,
+                      ),
                     ),
                   ),
-                ),
-                heightSpace(4),
-                GestureDetector(
-                  onTap: () async {
-                    if (_passwordErrorText == null &&
-                        _emailErrorText == null &&
-                        _usernameErrorText == null &&
-                        _emailController.text.isNotEmpty &&
-                        _passwordController.text.isNotEmpty &&
-                        _usernameController.text.isNotEmpty) {
-                      try {
-                        int otp = await AuthService.sendOTP(
-                          email: _emailController.text,
-                        );
-                        if (!mounted) return;
-                        Navigator.of(context).push(
-                          MaterialPageRoute(
-                            builder: (context) => ConfrimEmailView(
-                              firstOtp: otp,
+                  heightSpace(3),
+                  TextField(
+                    onChanged: (_) => setState(() => {}),
+                    controller: _emailController,
+                    decoration: InputDecoration(
+                      hintText: "Email",
+                      hintStyle: AppTheme.greyText.subtitle1,
+                      errorText: _emailErrorText,
+                      errorStyle: TextStyle(
+                        color: Colors.red,
+                        fontFamily: AppTheme.primaryFontFamily,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.email,
+                        color: Colors.grey,
+                        size: 5 * Responsive().imageConfig,
+                      ),
+                    ),
+                  ),
+                  heightSpace(3),
+                  TextField(
+                    onChanged: (_) => setState(() => {}),
+                    controller: _passwordController,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: "Password",
+                      hintStyle: AppTheme.greyText.subtitle1,
+                      errorText: _passwordErrorText,
+                      errorStyle: TextStyle(
+                        color: Colors.red,
+                        fontFamily: AppTheme.primaryFontFamily,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.password,
+                        color: Colors.grey,
+                        size: 5 * Responsive().imageConfig,
+                      ),
+                    ),
+                  ),
+                  heightSpace(4),
+                  GestureDetector(
+                    onTap: () async {
+                      if (_passwordErrorText == null &&
+                          _emailErrorText == null &&
+                          _usernameErrorText == null &&
+                          _emailController.text.isNotEmpty &&
+                          _passwordController.text.isNotEmpty &&
+                          _usernameController.text.isNotEmpty) {
+                        context.read<AuthBloc>().add(AuthEventRegister(
                               username: _usernameController.text,
                               email: _emailController.text,
                               password: _passwordController.text,
-                            ),
-                          ),
-                        );
-                      } on UserAlredyExistAuthException {
-                        log("user already exist");
+                            ));
                       }
-                    }
-                  },
-                  child: Container(
-                    width: 90 * Responsive().widthConfig,
-                    height: 7 * Responsive().heightConfig,
-                    decoration: BoxDecoration(
-                      color: (_passwordErrorText == null &&
-                              _emailErrorText == null &&
-                              _usernameErrorText == null &&
-                              _emailController.text.isNotEmpty &&
-                              _passwordController.text.isNotEmpty &&
-                              _usernameController.text.isNotEmpty)
-                          ? AppTheme.primaryLightColor
-                          : Colors.grey,
-                      borderRadius: BorderRadius.circular(
-                        2 * Responsive().imageConfig,
+                    },
+                    child: Container(
+                      width: 90 * Responsive().widthConfig,
+                      height: 7 * Responsive().heightConfig,
+                      decoration: BoxDecoration(
+                        color: (_passwordErrorText == null &&
+                                _emailErrorText == null &&
+                                _usernameErrorText == null &&
+                                _emailController.text.isNotEmpty &&
+                                _passwordController.text.isNotEmpty &&
+                                _usernameController.text.isNotEmpty)
+                            ? AppTheme.primaryLightColor
+                            : Colors.grey,
+                        borderRadius: BorderRadius.circular(
+                          2 * Responsive().imageConfig,
+                        ),
                       ),
-                    ),
-                    child: Center(
-                      child: Text(
-                        "Register",
-                        style: AppTheme.whiteText.button,
+                      child: Center(
+                        child: Text(
+                          "Register",
+                          style: AppTheme.whiteText.button,
+                        ),
                       ),
                     ),
                   ),
-                ),
-                heightSpace(4),
-                Row(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    Text("have an account ?", style: AppTheme.greyText.subtitle1),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.of(context).pushNamed(loginViewRoute);
-                      },
-                      child: Text(
-                        "Login",
-                        style: AppTheme.blueText.subtitle1,
+                  heightSpace(4),
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text("have an account ?",
+                          style: AppTheme.greyText.subtitle1),
+                      TextButton(
+                        onPressed: () {
+                          context.read<AuthBloc>().add(const AuthEventLogin());
+                        },
+                        child: Text(
+                          "Login",
+                          style: AppTheme.blueText.subtitle1,
+                        ),
                       ),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
         ),

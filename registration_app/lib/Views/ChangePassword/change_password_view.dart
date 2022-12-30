@@ -1,8 +1,13 @@
+import 'dart:developer';
+
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:registration_app/Bloc/auth_bloc.dart';
+import 'package:registration_app/Bloc/auth_event.dart';
+import 'package:registration_app/Bloc/auth_state.dart';
+import 'package:registration_app/Exceptions/exceptions.dart';
 import 'package:registration_app/Responsive/responsive.dart';
-import 'package:registration_app/Services/auth_service.dart';
 import 'package:registration_app/Widgets/space.dart';
-import 'package:registration_app/constants/routes.dart';
 import 'package:registration_app/style/images.dart';
 import 'package:registration_app/style/style.dart';
 
@@ -38,106 +43,117 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: 5 * Responsive().widthConfig,
-        ),
-        child: Center(
-          child: SingleChildScrollView(
-            child: Column(
-              children: [
-                Image.asset(
-                  Images.forgotPassword,
-                  width: 90 * Responsive().widthConfig,
-                  height: 40 * Responsive().heightConfig,
-                ),
-                Align(
-                  alignment: Alignment.centerLeft,
-                  child: Text(
-                    "Enter your new password",
-                    style: AppTheme.darkPrimaryText.button,
-                  ),
-                ),
-                heightSpace(5),
-                TextField(
-                  onChanged: (_) => setState(() => {}),
-                  controller: _password,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: "password",
-                    hintStyle: AppTheme.greyText.subtitle1,
-                    errorText: _passwordErrorText,
-                    errorStyle: TextStyle(
-                      color: Colors.red,
-                      fontFamily: AppTheme.primaryFontFamily,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.password,
-                      color: Colors.grey,
-                      size: 5 * Responsive().imageConfig,
-                    ),
-                  ),
-                ),
-                heightSpace(5),
-                TextField(
-                  onChanged: (_) => setState(() => {}),
-                  controller: _rePassword,
-                  obscureText: true,
-                  decoration: InputDecoration(
-                    hintText: "re-enter your password",
-                    hintStyle: AppTheme.greyText.subtitle1,
-                    errorText: _rePasswordErrorText,
-                    errorStyle: TextStyle(
-                      color: Colors.red,
-                      fontFamily: AppTheme.primaryFontFamily,
-                    ),
-                    prefixIcon: Icon(
-                      Icons.password,
-                      color: Colors.grey,
-                      size: 5 * Responsive().imageConfig,
-                    ),
-                  ),
-                ),
-                heightSpace(10),
-                GestureDetector(
-                  onTap: () async {
-                    if (_password.text.isNotEmpty &&
-                        _rePassword.text.isNotEmpty &&
-                        _passwordErrorText == null &&
-                        _rePasswordErrorText == null) {
-                      await AuthService.changePassword(
-                        email: widget.email,
-                        password: _password.text,
-                      );
-          
-                      if (!mounted) return;
-                      Navigator.of(context).pushNamed(loginViewRoute);
-                    }
-                  },
-                  child: Container(
+    return BlocListener<AuthBloc, AuthState>(
+      listener: (context, state) {
+        if (state is AuthStateChangePassword) {
+          if (state.exception is PasswordChangedSuccessfully) {
+            log("password changed");
+            context.read<AuthBloc>().add(const AuthEventLogin());
+          } else if (state.exception is InternetConnectionException) {
+            log("check your internet");
+          } else if (state.exception is GenericException) {
+            log('please try again later');
+          }
+        }
+      },
+      child: Scaffold(
+        body: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: 5 * Responsive().widthConfig,
+          ),
+          child: Center(
+            child: SingleChildScrollView(
+              child: Column(
+                children: [
+                  Image.asset(
+                    Images.forgotPassword,
                     width: 90 * Responsive().widthConfig,
-                    height: 7 * Responsive().heightConfig,
-                    decoration: BoxDecoration(
-                      color: (_password.text.isNotEmpty &&
-                              _rePassword.text.isNotEmpty &&
-                              _passwordErrorText == null &&
-                              _rePasswordErrorText == null)
-                          ? AppTheme.primaryLightColor
-                          : Colors.grey,
-                      borderRadius: BorderRadius.circular(
-                        5 * Responsive().imageConfig,
-                      ),
+                    height: 40 * Responsive().heightConfig,
+                  ),
+                  Align(
+                    alignment: Alignment.centerLeft,
+                    child: Text(
+                      "Enter your new password",
+                      style: AppTheme.darkPrimaryText.button,
                     ),
-                    child: Center(
-                      child: Text(
-                        "change password",
-                        style: AppTheme.whiteText.button,
+                  ),
+                  heightSpace(5),
+                  TextField(
+                    onChanged: (_) => setState(() => {}),
+                    controller: _password,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: "password",
+                      hintStyle: AppTheme.greyText.subtitle1,
+                      errorText: _passwordErrorText,
+                      errorStyle: TextStyle(
+                        color: Colors.red,
+                        fontFamily: AppTheme.primaryFontFamily,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.password,
+                        color: Colors.grey,
+                        size: 5 * Responsive().imageConfig,
                       ),
                     ),
                   ),
-                ),
-              ],
+                  heightSpace(5),
+                  TextField(
+                    onChanged: (_) => setState(() => {}),
+                    controller: _rePassword,
+                    obscureText: true,
+                    decoration: InputDecoration(
+                      hintText: "re-enter your password",
+                      hintStyle: AppTheme.greyText.subtitle1,
+                      errorText: _rePasswordErrorText,
+                      errorStyle: TextStyle(
+                        color: Colors.red,
+                        fontFamily: AppTheme.primaryFontFamily,
+                      ),
+                      prefixIcon: Icon(
+                        Icons.password,
+                        color: Colors.grey,
+                        size: 5 * Responsive().imageConfig,
+                      ),
+                    ),
+                  ),
+                  heightSpace(10),
+                  GestureDetector(
+                    onTap: () async {
+                      if (_password.text.isNotEmpty &&
+                          _rePassword.text.isNotEmpty &&
+                          _passwordErrorText == null &&
+                          _rePasswordErrorText == null) {
+                        context.read<AuthBloc>().add(AuthEventChangePassword(
+                              email: widget.email,
+                              password: _password.text,
+                            ));
+                      }
+                    },
+                    child: Container(
+                      width: 90 * Responsive().widthConfig,
+                      height: 7 * Responsive().heightConfig,
+                      decoration: BoxDecoration(
+                        color: (_password.text.isNotEmpty &&
+                                _rePassword.text.isNotEmpty &&
+                                _passwordErrorText == null &&
+                                _rePasswordErrorText == null)
+                            ? AppTheme.primaryLightColor
+                            : Colors.grey,
+                        borderRadius: BorderRadius.circular(
+                          5 * Responsive().imageConfig,
+                        ),
+                      ),
+                      child: Center(
+                        child: Text(
+                          "change password",
+                          style: AppTheme.whiteText.button,
+                        ),
+                      ),
+                    ),
+                  ),
+                ],
+              ),
             ),
           ),
         ),

@@ -3,7 +3,7 @@ import 'dart:io';
 import 'dart:math';
 import 'package:http/http.dart';
 import 'package:registration_app/Exceptions/exceptions.dart';
-import 'package:registration_app/Profile/profile.dart';
+import 'package:registration_app/Singleton/Profile/profile.dart';
 import 'package:registration_app/constants/server.dart';
 
 class AuthService {
@@ -13,12 +13,19 @@ class AuthService {
   }) async {
     loginBody["usernameOrEmail"] = usernameOrEmail;
     loginBody["password"] = password;
-    var res = await post(url, body: loginBody);
     try {
-      Map data = json.decode(utf8.decode(res.bodyBytes));
+      var res = await post(url, body: loginBody);
+      var data = json.decode(utf8.decode(res.bodyBytes));
+      if (data == 404) {
+        throw LoginAuthenticationException();
+      }
       return data;
+    } on LoginAuthenticationException {
+      rethrow;
+    } on SocketException {
+      throw InternetConnectionException();
     } catch (_) {
-      throw CanNotLoginAuthException();
+      throw GenericException();
     }
   }
 
@@ -30,10 +37,18 @@ class AuthService {
     registerBody["email"] = email;
     registerBody["username"] = username;
     registerBody["password"] = password;
-    var res = await post(url, body: registerBody);
-    int statusCode = int.parse(utf8.decode(res.bodyBytes));
-    if (statusCode != 0) {
-      throw UserAlredyExistAuthException();
+    try {
+      var res = await post(url, body: registerBody);
+      var data = json.decode(utf8.decode(res.bodyBytes));
+      if (data == 409) {
+        throw UserAlreadyExistException();
+      }
+    } on UserAlreadyExistException {
+      rethrow;
+    } on SocketException {
+      throw InternetConnectionException();
+    } catch (_) {
+      throw GenericException();
     }
   }
 
@@ -42,9 +57,20 @@ class AuthService {
 
     sendOTPBody["email"] = email;
     sendOTPBody["otp"] = otp.toString();
-
-    await post(url, body: sendOTPBody);
-    return otp;
+    try {
+      var res = await post(url, body: sendOTPBody);
+      var data = json.decode(utf8.decode(res.bodyBytes));
+      if (data != 200) {
+        throw EmailNotSentException();
+      }
+      return otp;
+    } on EmailNotSentException {
+      rethrow;
+    } on SocketException {
+      throw InternetConnectionException();
+    } catch (_) {
+      throw GenericException();
+    }
   }
 
   static Future<int> sendForgotPassword({required String email}) async {
@@ -53,18 +79,36 @@ class AuthService {
     sendForgotPasswordBody["email"] = email;
     sendForgotPasswordBody["otp"] = otp.toString();
 
-    await post(url, body: sendForgotPasswordBody);
-    return otp;
+    try {
+      var res = await post(url, body: sendForgotPasswordBody);
+      var data = json.decode(utf8.decode(res.bodyBytes));
+      if (data != 200) {
+        throw EmailNotSentException();
+      }
+      return otp;
+    } on EmailNotSentException {
+      rethrow;
+    } on SocketException {
+      throw InternetConnectionException();
+    } catch (_) {
+      throw GenericException();
+    }
   }
 
-  static Future<bool> checkUserExist({required String email}) async {
-    checkUserExistBody["email"] = email;
+  static Future<bool> checkUserExist({required String usernameOrEmail}) async {
+    checkUserExistBody["usernameOrEmail"] = usernameOrEmail;
 
-    var res = await post(url, body: checkUserExistBody);
-    if (utf8.decode(res.bodyBytes) == "true") {
-      return true;
-    } else {
-      return false;
+    try {
+      var res = await post(url, body: checkUserExistBody);
+      if (utf8.decode(res.bodyBytes) == "404") {
+        return false;
+      } else {
+        return true;
+      }
+    } on SocketException {
+      throw InternetConnectionException();
+    } catch (_) {
+      throw GenericException();
     }
   }
 
@@ -75,7 +119,19 @@ class AuthService {
     changePasswordBody["email"] = email;
     changePasswordBody["password"] = password;
 
-    await post(url, body: changePasswordBody);
+    try {
+      var res = await post(url, body: changePasswordBody);
+      var data = json.decode(utf8.decode(res.bodyBytes));
+      if (data != 200) {
+        throw PasswordDoesntChnagedException();
+      }
+    } on PasswordDoesntChnagedException {
+      rethrow;
+    } on SocketException {
+      throw InternetConnectionException();
+    } catch (_) {
+      throw GenericException();
+    }
   }
 
   static Future<void> addName({
@@ -90,24 +146,35 @@ class AuthService {
   static Future<void> uploadProfileImage({
     required String filePath,
   }) async {
-    //convert image to base64
-    final bytes = File(filePath).readAsBytesSync();
-    String base64 = base64Encode(bytes);
+    try {
+      //convert image to base64
+      final bytes = File(filePath).readAsBytesSync();
+      String base64 = base64Encode(bytes);
 
-    // send post request ro imgbb
-    uploadProfileImageBody["image"] = base64;
-    var res = await post(
-      Uri.parse("https://api.imgbb.com/1/upload"),
-      body: uploadProfileImageBody,
-    );
-    Map data = json.decode(utf8.decode(res.bodyBytes));
-    
-    // add profile image link to database
-    addProfileImageBody["email"] = Profile().email;
-    addProfileImageBody["image_url"] = data["data"]["url"];
-    await post(url, body: addProfileImageBody);
+      // send post request ro imgbb
+      uploadProfileImageBody["image"] = base64;
+      var res = await post(
+        Uri.parse("https://api.imgbb.com/1/upload"),
+        body: uploadProfileImageBody,
+      );
+      Map data = json.decode(utf8.decode(res.bodyBytes));
 
-    // update cache
-    Profile().imageUrl = data["data"]["url"];
+      // add profile image link to database
+      addProfileImageBody["email"] = Profile().email;
+      addProfileImageBody["image_url"] = data["data"]["url"];
+      var res2 = await post(url, body: addProfileImageBody);
+      var data2 = json.decode(utf8.decode(res2.bodyBytes));
+      if (data2 != 200) {
+        throw NameDoesntChangedExcpetion();
+      }
+      // update cache
+      Profile().imageUrl = data["data"]["url"];
+    } on NameDoesntChangedExcpetion {
+      rethrow;
+    } on SocketException {
+      throw InternetConnectionException();
+    } catch (_) {
+      throw GenericException();
+    }
   }
 }

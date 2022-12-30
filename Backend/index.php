@@ -18,10 +18,12 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && $_POST["user"] == $user && $_POST["p
             echo $result;
             break;
         case "sendOtp":
-            Email::sendOTP(email: $_POST["email"], otp: $_POST["otp"]);
+            $result = Email::sendOTP(email: $_POST["email"], otp: $_POST["otp"]);
+            echo $result;
             break;
         case "sendForgotPassword":
-            Email::sendForgotPassword(email: $_POST["email"], otp: $_POST["otp"]);
+            $result = Email::sendForgotPassword(email: $_POST["email"], otp: $_POST["otp"]);
+            echo $result;
             break;
         case "checkUserExist":
             $result = $Udb->readUser(usernameOrEmail: $_POST["usernameOrEmail"]);

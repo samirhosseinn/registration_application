@@ -39,7 +39,7 @@ final Map checkUserExistBody = {
   "user": user,
   "pass": pass,
   "mode": "checkUserExist",
-  "email": null,
+  "usernameOrEmail": null,
 };
 
 final Map changePasswordBody = {

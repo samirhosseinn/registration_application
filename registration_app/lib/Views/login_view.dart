@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:double_back_to_close_app/double_back_to_close_app.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +6,7 @@ import 'package:registration_app/Bloc/auth_event.dart';
 import 'package:registration_app/Bloc/auth_state.dart';
 import 'package:registration_app/Exceptions/exceptions.dart';
 import 'package:registration_app/Responsive/responsive.dart';
+import 'package:registration_app/Widgets/dialogs.dart';
 import 'package:registration_app/Widgets/space.dart';
 import 'package:registration_app/style/images.dart';
 import 'package:registration_app/style/style.dart';
@@ -39,14 +39,23 @@ class _LoginViewState extends State<LoginView> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is AuthStateLogin) {
           if (state.exception is LoginAuthenticationException) {
-            log("can not login");
+            await showErrorDiaog(
+              context: context,
+              text: "wrong credential",
+            );
           } else if (state.exception is InternetConnectionException) {
-            log("check your internet");
+            await showErrorDiaog(
+              context: context,
+              text: "check your internet connection",
+            );
           } else if (state.exception is GenericException) {
-            log('please try again later');
+            await showErrorDiaog(
+              context: context,
+              text: "please try again later",
+            );
           }
         }
       },

@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:registration_app/Bloc/auth_bloc.dart';
@@ -6,6 +5,7 @@ import 'package:registration_app/Bloc/auth_event.dart';
 import 'package:registration_app/Bloc/auth_state.dart';
 import 'package:registration_app/Exceptions/exceptions.dart';
 import 'package:registration_app/Responsive/responsive.dart';
+import 'package:registration_app/Widgets/dialogs.dart';
 import 'package:registration_app/Widgets/space.dart';
 import 'package:registration_app/style/images.dart';
 import 'package:registration_app/style/style.dart';
@@ -41,14 +41,23 @@ class _RegisterViewState extends State<RegisterView> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is AuthStateRegister) {
           if (state.exception is UserAlreadyExistException) {
-            log("user alredy esixt");
+            await showErrorDiaog(
+              context: context,
+              text: "username or email already exist",
+            );
           } else if (state.exception is InternetConnectionException) {
-            log("check your internet");
+            await showErrorDiaog(
+              context: context,
+              text: "check your internet connection",
+            );
           } else if (state.exception is GenericException) {
-            log('please try again later');
+            await showErrorDiaog(
+              context: context,
+              text: "please try again later",
+            );
           }
         }
       },

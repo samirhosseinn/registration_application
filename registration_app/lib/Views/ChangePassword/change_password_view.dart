@@ -1,5 +1,3 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:registration_app/Bloc/auth_bloc.dart';
@@ -7,6 +5,7 @@ import 'package:registration_app/Bloc/auth_event.dart';
 import 'package:registration_app/Bloc/auth_state.dart';
 import 'package:registration_app/Exceptions/exceptions.dart';
 import 'package:registration_app/Responsive/responsive.dart';
+import 'package:registration_app/Widgets/dialogs.dart';
 import 'package:registration_app/Widgets/space.dart';
 import 'package:registration_app/style/images.dart';
 import 'package:registration_app/style/style.dart';
@@ -44,15 +43,25 @@ class _ChangePasswordViewState extends State<ChangePasswordView> {
   @override
   Widget build(BuildContext context) {
     return BlocListener<AuthBloc, AuthState>(
-      listener: (context, state) {
+      listener: (context, state) async {
         if (state is AuthStateChangePassword) {
           if (state.exception is PasswordChangedSuccessfully) {
-            log("password changed");
+            await showErrorDiaog(
+              context: context,
+              text: "password changed",
+            );
+            if (!mounted) return;
             context.read<AuthBloc>().add(const AuthEventLogin());
           } else if (state.exception is InternetConnectionException) {
-            log("check your internet");
+            await showErrorDiaog(
+              context: context,
+              text: "check your internet connection",
+            );
           } else if (state.exception is GenericException) {
-            log('please try again later');
+            await showErrorDiaog(
+              context: context,
+              text: "please try again later",
+            );
           }
         }
       },
